@@ -3,6 +3,7 @@ import Main from "./page/main/Main"
 import Footer from "./components/layout/Footer/Footer"
 import Header from "./components/layout/Header/Header"
 import List from "./page/list/List"
+import Detail from "./page/detail/Detail"
 
 function App() {
   return(
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main/>}/>
         <Route path="/list/:cate" element={<List/>}/>
+        <Route path="/detail/:id" element={<Detail/>}/>
       </Routes>
       <Footer/>
     </>
