@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Bookmark from "./Bookmark";
 
 export interface CardType {
@@ -13,13 +14,13 @@ export interface CardType {
   id? : string
 }
 
-export default function Card({src,name,description,price} : CardType) {
+export default function Card({src,name,description,price,id} : CardType) {
 
   return (
-    <div className="overflow-hidden relative">
+    <Link to={`/detail/${id}`} className="overflow-hidden relative">
       <div className="overflow-hidden relative rounded-2xl cursor-pointer border-gray-100 after:pb-[calc(400/265*100%)] after:block">
           <div className="absolute left-0 top-0 w-full h-full">
-              <img src={src}  className="left-0 top-0 absolute w-full h-full object-cover object-center" alt={name} />
+              <img src={src} className="left-0 top-0 absolute w-full h-full object-cover object-center" alt={name} />
           </div>
       </div>
 
@@ -29,7 +30,7 @@ export default function Card({src,name,description,price} : CardType) {
         <p className="whitespace-pre-line overflow-hidden line-clamp-2 text-ellipsis leading-normal text-sm mt-2 text-gray-500">{description?.split("\\n").map(line=><>{line}<br/></>)}</p>
         <Bookmark className="mt-2"/>
       </div>
-    </div>
+    </Link>
   )
 }
 
