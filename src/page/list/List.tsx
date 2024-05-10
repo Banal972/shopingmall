@@ -9,10 +9,19 @@ import { tagAtom } from "../../store/feature/tag/tag";
 export default function List() {
 
     const {cate} = useParams();
-    const [list,setList] = useState<CardType[]>([]);
+    const [list,setList] = useState<CardType[]>([]); // 기본 데이터
+    const [filterList,setFilterList] = useState<CardType[]>([]); // 필터 데이터
     const [title,setTitle] = useState("타이틀");
     const tagValue = useRecoilValue(tagAtom).filter(el=>el.tagNumber === cate);
     
+    const tagHanlder = (names : string)=>{
+        if(names === "전체"){
+            return setFilterList(list);
+        }
+        const filterList = list.filter((el=>el.tag?.includes(names)));
+        setFilterList(filterList);
+    }
+
     const fetch = async ()=>{
         
         let fetchQuery;
@@ -70,19 +79,21 @@ export default function List() {
 
         const shoes = snapshot.docs.map((doc)=>{
 
-            const {price,description,name,src} : CardType = doc.data();
+            const {price,description,name,src,tag} : CardType = doc.data();
 
             return {
                 price,
                 description,
                 name,
                 src,
+                tag,
                 id : doc.id
             }
 
         });
 
         setList(shoes);
+        setFilterList(shoes);
 
     }
 
@@ -109,7 +120,7 @@ export default function List() {
                 {
                     tagValue.map((el)=>
                         el.name.map((names,index)=>
-                            <li key={index} className="font-medium border border-[#ccc] rounded-full py-1 px-3 cursor-pointer flex-none ">{names}</li>
+                            <li onClick={()=>tagHanlder(names)} key={index} className="font-medium border border-[#ccc] rounded-full py-1 px-3 cursor-pointer flex-none ">{names}</li>
                         )
                     )
                 }
@@ -117,7 +128,7 @@ export default function List() {
 
               <div className="grid grid-cols-5 gap-x-7 gap-y-16 mt-12">
                 {
-                    list.map((el)=><Card key={el.id} {...el}/>)
+                    filterList.map((el)=><Card key={el.id} {...el}/>)
                 }
               </div>
 
