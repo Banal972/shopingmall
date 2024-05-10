@@ -4,11 +4,14 @@ import App from './App.tsx'
 import './index.css'
 import 'swiper/css';
 import { BrowserRouter } from 'react-router-dom'
+import { RecoilRoot } from 'recoil';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 )
