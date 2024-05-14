@@ -1,9 +1,29 @@
+import { useEffect, useState } from "react";
 import { BsCart2, BsPerson } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { auth } from "../../../firebase";
+import useGetUser from "../../../hooks/useGetUser";
 
 export default function Header() {
+
+  const user = useGetUser();
+  const [fixMenu,setFixMenu] = useState(false);
+  const [userMenu,setUserMenu] = useState(false);
+
+  const location = useLocation();
+
+  const logout = ()=>{
+    auth.signOut();
+    setUserMenu(false);
+  }
+
+  useEffect(()=>{
+    setUserMenu(false);
+  },[location.pathname]);
+
   return (
     <header className="fixed z-50 top-0 left-0 w-full text-white transition-[background]">
+      
       <div className="max-w-[1600px] w-[95%] mx-auto h-[75px] items-center flex justify-between">
         <div className="relative z-10 filter-[invert(1)]">
           <Link to={"/"}>
@@ -32,22 +52,26 @@ export default function Header() {
             </div>
 
             {/* 마이페이지 */}
-            <div className="text-2xl relative ml-[calc(15/24*1em)]">
-              <BsPerson/>
-              <div className="absolute text-sm left-1/2 top-full mt-4 -translate-x-1/2 hidden text-black">
+            <div className={`text-2xl relative ml-[calc(15/24*1em)] cursor-pointer`}>
+              <BsPerson onClick={()=>setUserMenu(!userMenu)}/>
+              <div className={`absolute text-sm left-1/2 top-full mt-4 -translate-x-1/2 text-black ${!userMenu ? "hidden" : ""}`}>
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-3/4 z-10">
                   <img src="/asset/image/snb_dep2Arr.png" alt="" />
                 </div>
                 <ul className="relative z-10 bg-white p-3 py-4 whitespace-nowrap border-[#ddd] text-center rounded-md">
+                  {
+                    user ?
+                    <>
+                        <li><Link to={"/bookmark"}>관심상품</Link></li>
+                        <li className="mt-2"><Link to={"/history"}>주문내역</Link></li>
+                        <li className="mt-2"><button type="button" onClick={logout}>로그아웃</button></li>
+                    </>
+                    :
                     <>
                       <li><Link to={"/login"}>로그인</Link></li>
                       <li className="mt-2"><Link to={"/sign"}>회원가입</Link></li>
                     </>
-                    <>
-                        <li><Link to={"/slang"}>관심상품</Link></li>
-                        <li className="mt-2"><Link to={"/history"}>주문내역</Link></li>
-                        <li className="mt-2"><Link to={"/"} onClick={()=>{}}>로그아웃</Link></li>
-                    </>                  
+                  }
                 </ul>
               </div>
             </div>
@@ -55,7 +79,7 @@ export default function Header() {
           </nav>
 
           {/* 메뉴 */}
-          <div className="relative w-6 h-3 ml-10 cursor-pointer">
+          <div className={`relative w-6 h-3 ml-10 cursor-pointer z-20`} onClick={()=>setFixMenu(!fixMenu)}>
             <span className="absolute left-0 top-0 w-full -translate-y-1/2 bg-white block h-[2px]"></span>
             <span className="absolute left-0 w-full -translate-y-1/2 bg-white block h-[2px] top-1/2"></span>
             <span className="absolute left-0 w-full -translate-y-1/2 bg-white block h-[2px] top-full"></span>
@@ -65,8 +89,8 @@ export default function Header() {
 
       </div>
 
-    {/* mob-menu */}
-      <div className='fixed right-0 top-0 translate-x-full h-full w-[85%] bg-white border-l border-[#ddd] max-w-[380px] text-black text-2xl box-border font-medium flex flex-col transition-transform z-10'>
+      {/* mob-menu */}
+      <div className={`fixed right-0 top-0 h-full w-[85%] ${fixMenu ? "translate-x-0" : "translate-x-full"} bg-white border-l border-[#ddd] max-w-[380px] text-black text-2xl box-border font-medium flex flex-col transition-transform z-10`}>
         
         <div className="relative h-20">
             <div className="relative w-6 h-3 ml-10 cursor-pointer">
