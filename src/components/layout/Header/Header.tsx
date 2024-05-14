@@ -1,11 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsCart2, BsPerson } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { auth } from "../../../firebase";
+import useGetUser from "../../../hooks/useGetUser";
 
 export default function Header() {
 
+  const user = useGetUser();
   const [fixMenu,setFixMenu] = useState(false);
   const [userMenu,setUserMenu] = useState(false);
+
+  const location = useLocation();
+
+  const logout = ()=>{
+    auth.signOut();
+    setUserMenu(false);
+  }
+
+  useEffect(()=>{
+    setUserMenu(false);
+  },[location.pathname]);
 
   return (
     <header className="fixed z-50 top-0 left-0 w-full text-white transition-[background]">
@@ -40,20 +54,24 @@ export default function Header() {
             {/* 마이페이지 */}
             <div className={`text-2xl relative ml-[calc(15/24*1em)] cursor-pointer`}>
               <BsPerson onClick={()=>setUserMenu(!userMenu)}/>
-              <div className={`absolute text-sm left-1/2 top-full mt-4 -translate-x-1/2 text-black ${userMenu ? "hidden" : ""}`}>
+              <div className={`absolute text-sm left-1/2 top-full mt-4 -translate-x-1/2 text-black ${!userMenu ? "hidden" : ""}`}>
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-3/4 z-10">
                   <img src="/asset/image/snb_dep2Arr.png" alt="" />
                 </div>
                 <ul className="relative z-10 bg-white p-3 py-4 whitespace-nowrap border-[#ddd] text-center rounded-md">
+                  {
+                    user ?
+                    <>
+                        <li><Link to={"/bookmark"}>관심상품</Link></li>
+                        <li className="mt-2"><Link to={"/history"}>주문내역</Link></li>
+                        <li className="mt-2"><button type="button" onClick={logout}>로그아웃</button></li>
+                    </>
+                    :
                     <>
                       <li><Link to={"/login"}>로그인</Link></li>
                       <li className="mt-2"><Link to={"/sign"}>회원가입</Link></li>
                     </>
-                    <>
-                        <li><Link to={"/slang"}>관심상품</Link></li>
-                        <li className="mt-2"><Link to={"/history"}>주문내역</Link></li>
-                        <li className="mt-2"><Link to={"/"} onClick={()=>{}}>로그아웃</Link></li>
-                    </>
+                  }
                 </ul>
               </div>
             </div>
