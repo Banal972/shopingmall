@@ -115,20 +115,23 @@ export default function Sticky({detail} : {detail : DetailType}) {
 
                 <dl className="mt-8 text-center grid grid-cols-[90px_1fr] items-center">
                     <dt className="text-base whitespace-nowrap font-medium flex-none text-left">수량</dt>
-                    <dd className="text-sm leading-5 flex">
+                    <dd className="text-sm leading-5 flex border border-[#666] justify-between w-40">
                         <button 
                             onClick={increaseHanlder} 
-                            className="bg-white border border-[#666] w-7 h-7 cursor-pointer rounded-sm"
+                            className="w-7 h-7 cursor-pointer"
                         >+</button>
-                        <input 
-                            className="w-24 border border-[#666] flex items-center justify-center mx-2 text-lg rounded-sm text-center" 
-                            type="text" 
-                            defaultValue={amount}
-                        />
+                        <div className="flex items-center justify-center mx-2 text-lg rounded-sm text-center">{amount}</div>
                         <button
                             onClick={subtractHanlder}
-                            className="bg-white border border-[#666] w-7 h-7 cursor-pointer rounded-sm"
+                            className="w-7 h-7 cursor-pointer"
                         >-</button>
+                    </dd>
+                </dl>
+
+                <dl className="mt-8 text-center grid grid-cols-[90px_1fr] items-center">
+                    <dt className="text-base whitespace-nowrap font-medium flex-none text-left">배송</dt>
+                    <dd className="text-sm leading-5 flex">
+                        무료배송
                     </dd>
                 </dl>
 
