@@ -5,6 +5,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import { DetailType, ProductType } from "../../components/main/Card";
 import Sticky from "../../components/detail/sticky/Sticky";
+import Inquiry from "../../components/detail/inquiry/Inquiry";
 
 export default function Detail() {
 
@@ -25,7 +26,6 @@ export default function Detail() {
     useEffect(()=>{
         fetch();
     },[id]);
-
 
   return (
     <div className="pt-10">
@@ -65,17 +65,19 @@ export default function Detail() {
 
                     {
                         step === 0 &&
-                            <div className="cont">{detail?.detail}</div>
+                            <div className="mt-12 leading-snug text-base break-keep">{detail?.detail}</div>
                     }
 
-                    {/* {
+                    {
                         step === 1 &&
-                            <Inquiry user={userData}/>
-                    } */}
+                            <Inquiry id={id as string}/>
+                    }
 
                 </div>
 
-                <Popular/>
+                {
+                    detail && <Popular name={detail.name} cate={detail.cate}/>
+                }
 
             </div>
 
