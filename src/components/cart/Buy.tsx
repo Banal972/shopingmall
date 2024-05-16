@@ -3,8 +3,7 @@ import { auth } from "../../firebase";
 import { useRecoilState } from "recoil";
 import { cartAtom } from "../../store/feature/cart/cart";
 
-export default function Buy(props : {checkItem : string[]}) {
-    const {checkItem} = props;
+export default function Buy({checkItem} : {checkItem : string[]}) {
   
     // 네비게이터
     const navigate = useNavigate();
@@ -49,7 +48,7 @@ export default function Buy(props : {checkItem : string[]}) {
         if(window.confirm("삭제하시겠습니까?")){
 
         setCart((prev)=>{
-            const prevCart = [...prev].filter(el => checkItem.includes(`${el.product.id}${el.product.size}`))
+            const prevCart = [...prev].filter(el => !checkItem.includes(`${el.id}${el.size}`));
             return prevCart;
         });
 

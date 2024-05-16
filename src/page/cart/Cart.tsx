@@ -40,9 +40,6 @@ export default function Cart() {
 
     // 단일 선택
     const handleSingleCheck = (id : string) => {
-
-        console.log(id);
-
         if(!checkItem.includes(id)){
         // 단일 선택시 아이템 추가
             setCheckItem(prev=>[...prev,id]);
@@ -50,22 +47,18 @@ export default function Cart() {
         // 단일 선택 해제 시 체크된 아이템 제외
             setCheckItem(checkItem.filter(el=>el !== id));
         }
-
     }
 
-    const [allCheck,setAllCheck] = useState(false);
     // 체크박스 전체 선택
-    useEffect(()=>{
-
-        if(allCheck){
+    const handleAllCheck = ()=>{
+        if(cart.length !== checkItem.length){
             const idArray : string[] = [];
             cart.forEach((el)=> idArray.push(`${el.id}${el.size}`));
             setCheckItem(idArray);
         }else{
             setCheckItem([]);
         }
-
-    },[allCheck]);
+    }
 
     return (
         <div className="pt-20">
@@ -82,8 +75,8 @@ export default function Cart() {
                             <div className="w-full">
                                 {/* bg-[#26a8e0] text-white border border-[#26a8e0] */}
                                 <div 
-                                    className={`w-4 h-4 border border-[#ddd] relative cursor-pointer box-border mx-auto ${allCheck ? "bg-[#26a8e0] text-white border border-[#26a8e0]" : ""}`}
-                                    onClick={()=>setAllCheck(!allCheck)}
+                                    className={`w-4 h-4 border border-[#ddd] relative cursor-pointer box-border mx-auto ${cart.length === checkItem.length ? "bg-[#26a8e0] text-white border border-[#26a8e0]" : ""}`}
+                                    onClick={handleAllCheck}
                                 >
                                     <IoIosCheckmark className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
                                 </div>
@@ -103,12 +96,12 @@ export default function Cart() {
                             cart.map((elm,index)=>(
                                 <div 
                                     className={`border-t border-t-[#ddd] grid grid-cols-[50px_auto_10%_10%_10%] items-center text-center ${index === 0 ? "border-t border-t-[#ddd]" : ""}`} 
-                                    key={elm.id}
+                                    key={`${elm.id}${elm.size}`}
                                 >
                                     <div className="p-4 box-border">
                                         <div 
-                                            className={`w-4 h-4 border border-[#ddd] relative cursor-pointer box-border mx-auto ${checkItem.includes(elm.id as string) ? "bg-[#26a8e0] text-white border border-[#26a8e0]" : ""}`}
-                                            onClick={()=>handleSingleCheck(elm.id as string)}
+                                            className={`w-4 h-4 border border-[#ddd] relative cursor-pointer box-border mx-auto ${checkItem.includes(`${elm.id}${elm.size}`) ? "bg-[#26a8e0] text-white border border-[#26a8e0]" : ""}`}
+                                            onClick={()=>handleSingleCheck(`${elm.id}${elm.size}`)}
                                         >
                                             <IoIosCheckmark className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
                                         </div>

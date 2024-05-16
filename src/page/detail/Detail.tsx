@@ -1,20 +1,25 @@
 import { useParams } from "react-router-dom";
 import Popular from "../../components/detail/popular/Popular";
 import { useEffect, useState } from "react";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import { CardType } from "../../components/main/Card";
+import { DetailType, ProductType } from "../../components/main/Card";
 import Sticky from "../../components/detail/sticky/Sticky";
 
 export default function Detail() {
 
     const {id} = useParams();
-    const [detail,setDetail] = useState<CardType>();
+    const [detail,setDetail] = useState<DetailType>();
     const [step,setStep] = useState(0);
 
     const fetch = async()=>{
+        if(!id) return;
         const detailQuery = await getDoc(doc(db, "shoes", String(id)));
-        setDetail(detailQuery.data());
+        const data  = detailQuery.data() as ProductType;
+        setDetail({
+            ...data,
+            id
+        });
     }
 
     useEffect(()=>{
@@ -75,7 +80,7 @@ export default function Detail() {
             </div>
 
             {
-                detail && <Sticky docId={id} detail={detail}/>
+                detail && <Sticky detail={detail}/>
             }
 
         </div>

@@ -26,7 +26,7 @@ export default function Remove({elm} : {elm : CartType}) {
   
     return(
       <button 
-        className="delete"
+        className="bg-red-500 text-white text-xs py-1 px-2"
         onClick={removeHandler}
       >삭제하기</button>
     )

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { CardType } from "../../main/Card";
+import { DetailType } from "../../main/Card";
 import { useRecoilState } from "recoil";
 import { cartAtom } from "../../../store/feature/cart/cart";
 import { useNavigate } from "react-router-dom";
 
-export default function Sticky({docId,detail} : {docId : string,detail : CardType}) {
+export default function Sticky({detail} : {detail : DetailType}) {
 
     const navigate = useNavigate();
 
@@ -37,13 +37,13 @@ export default function Sticky({docId,detail} : {docId : string,detail : CardTyp
 
             const data = {
                 product : detail,
-                id : docId,
+                id : detail.id,
                 size  : clickSize,
                 amount : amount,
             }
 
             const rs = cart.findIndex(el=>{ // 데이터가 존재하는지 여부 가져오기
-                return el.id === docId && el.size === clickSize;
+                return el.id === detail.id && el.size === clickSize;
             }); 
 
             if(rs > -1){
