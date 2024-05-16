@@ -6,7 +6,10 @@ import { toNumber } from "../../lib/saleCalc";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import Buy from "../../components/cart/Buy";
-import SaleCalc from "../../components/common/Sales";
+import Remove from "../../components/cart/Remove";
+import Add from "../../components/cart/Add";
+import Delete from "../../components/cart/Delete";
+import Sale from "../../components/cart/Sale";
 
 export default function Cart() {
 
@@ -37,7 +40,7 @@ export default function Cart() {
         <div className="pt-20">
             <div className="max-w-[1600px] w-[90%] mx-auto relative py-20">
         
-                <h2>장바구니</h2>
+                <h2 className="text-4xl text-center font-bold mb-10">장바구니</h2>
 
                 <div className="border-t-2 border-t-[#000] border-b border-b-[#ddd]">
 
@@ -63,10 +66,17 @@ export default function Cart() {
                     {
                         cart.length > 0 ?
                             cart.map((elm,index)=>(
-                                <div className={`border-t border-t-[#ddd] grid grid-cols-[50px_auto_10%_10%_10%] items-center text-center ${index === 0 ? "border-t border-t-[#ddd]" : ""}`} key={elm.id}>
+                                <div 
+                                    className={`border-t border-t-[#ddd] grid grid-cols-[50px_auto_10%_10%_10%] items-center text-center ${index === 0 ? "border-t border-t-[#ddd]" : ""}`} 
+                                    key={elm.id}
+                                >
 
                                     <div className="p-4 box-border">
-                                        <div className="w-4 h-4 border border-[#ddd] relative cursor-pointer box-border mx-auto "><IoIosCheckmark className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/></div>
+                                        <div 
+                                            className="w-4 h-4 border border-[#ddd] relative cursor-pointer box-border mx-auto"
+                                        >
+                                            <IoIosCheckmark className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
+                                        </div>
                                     </div>
 
                                     <div className="p-4 box-border">
@@ -85,40 +95,37 @@ export default function Cart() {
                                     </div>
 
                                     <div className="p-4 box-border flex items-center">
-                                        <p className="text-sm font-medium mr-4 flex-none block">가격</p>
+                                        {/* <p className="text-sm font-medium mr-4 flex-none block">가격</p> */}
                                         {
-                                            elm.product.sale ?
-                                            <div>
-                                                <p className="text-sm line-through text-[#555] text-nowrap">
+                                            elm.product.sale 
+                                            ?
+                                                <div>
+                                                    <p className="text-sm line-through text-[#999] text-nowrap">
+                                                        {toNumber(elm.product.price as number)}원
+                                                    </p>
+                                                    <p className="font-bold text-nowrap">
+                                                        <Sale price={elm.product.price} sale={elm.product.sale} />
+                                                    </p>
+                                                </div> 
+                                            :
+                                                <p className="font-bold text-nowrap">
                                                     {toNumber(elm.product.price as number)}원
                                                 </p>
-                                                <p className="font-bold text-nowrap">
-                                                    <SaleCalc price={elm.product.price} sale={elm.product.sale} />
-                                                </p>
-                                            </div> 
-                                            :
-                                            <p className="font-bold text-nowrap">
-                                                {toNumber(elm.product.price as number)}원
-                                            </p>
                                         }
                                     </div>
 
-                                    {/* <div className="p-4 box-border amountCol">
-
-                                    <p className="p-col">
-                                        수량
-                                    </p>
-                                    <div className="amount">
-                                        <AddCart elm={elm}/>
-                                        <ChangeCart elm={elm}/>
-                                        <DeleteCart elm={elm}/>
-                                    </div>
-
+                                    <div className="p-4 box-border amountCol">
+                                        {/* <p className="p-col">수량</p> */}
+                                        <div className="flex gap-2 border border-[#ddd]">
+                                            <Add elm={elm}/>
+                                            <div className="flex-1 ">{elm.amount}</div>
+                                            <Delete elm={elm}/>
+                                        </div>
                                     </div>
 
                                     <div className="p-4 box-border">
-                                    <RemoveCart elm={elm}/>
-                                    </div> */}
+                                        <Remove elm={elm}/>
+                                    </div>
 
                                 </div>
                             ))
