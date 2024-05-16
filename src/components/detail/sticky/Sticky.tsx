@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 import { cartAtom } from "../../../store/feature/cart/cart";
 import { useNavigate } from "react-router-dom";
 
-export default function Sticky({detail} : {detail : CardType}) {
+export default function Sticky({docId,detail} : {docId : string,detail : CardType}) {
 
     const navigate = useNavigate();
 
@@ -37,13 +37,13 @@ export default function Sticky({detail} : {detail : CardType}) {
 
             const data = {
                 product : detail,
-                id : detail.id,
+                id : docId,
                 size  : clickSize,
                 amount : amount,
             }
 
             const rs = cart.findIndex(el=>{ // 데이터가 존재하는지 여부 가져오기
-                return el.id === detail.id && el.size === clickSize;
+                return el.id === docId && el.size === clickSize;
             }); 
 
             if(rs > -1){

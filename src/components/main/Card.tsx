@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 import Bookmark from "./Bookmark";
 
 export interface CardType {
+  cate?: string;
+  description?: string;
+  detail?: string;
   size?: number[];
   hit?: number;
-  cate?: string;
-  price: number;
-  detail?: string;
+  price?: number;
   src?: string;
   name?: string;
   tag?: string[];
-  description?: string;
   sale? : number,
   id? : string
 }

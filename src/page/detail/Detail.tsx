@@ -13,8 +13,7 @@ export default function Detail() {
     const [step,setStep] = useState(0);
 
     const fetch = async()=>{
-        console.log(id);
-        const detailQuery = await getDoc(doc(db, "shoes", String(id)))
+        const detailQuery = await getDoc(doc(db, "shoes", String(id)));
         setDetail(detailQuery.data());
     }
 
@@ -76,7 +75,7 @@ export default function Detail() {
             </div>
 
             {
-                detail && <Sticky detail={detail}/>
+                detail && <Sticky docId={id} detail={detail}/>
             }
 
         </div>
