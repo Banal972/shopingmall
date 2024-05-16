@@ -9,6 +9,7 @@ import Sign from "./page/sign/Sign"
 import PublicRoute from "./components/auth/PublicRoute"
 import PrivateRoute from "./components/auth/PrivateRoute"
 import Bookmark from "./page/bookmark/Bookmark"
+import Cart from "./page/cart/Cart"
 
 function App() {
   return(
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<PublicRoute><Login/></PublicRoute>}/>
         <Route path="/sign" element={<PublicRoute><Sign/></PublicRoute>}/>
         <Route path="/bookmark" element={<PrivateRoute><Bookmark/></PrivateRoute>}/>
+        <Route path="/cart" element={<Cart/>} />
       </Routes>
       <Footer/>
     </>

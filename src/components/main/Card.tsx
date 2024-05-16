@@ -1,18 +1,44 @@
 import { Link } from "react-router-dom";
 import Bookmark from "./Bookmark";
 
-export interface CardType {
-  size?: number[];
-  hit?: number;
-  cate?: string;
-  price?: number;
-  detail?: string;
-  src?: string;
-  name?: string;
-  tag?: string[];
-  description?: string;
-  id? : string
+export interface ProductType {
+  sale: number;
+  detail: string;
+  cate: string;
+  description: string;
+  name: string;
+  size: number[];
+  hit: number;
+  price: number;
+  src: string;
+  tag: string[];
+  only: boolean;
 }
+
+export interface DetailType {
+  sale?: number;
+  detail: string;
+  cate: string;
+  description: string;
+  name: string;
+  size: number[];
+  hit: number;
+  price: number;
+  src: string;
+  tag: string[];
+  only?: boolean;
+  id : string;
+}
+
+export interface CardType {
+  price: number;
+  description: string;
+  name: string;
+  src: string;
+  tag: string[];
+  id : string;
+}
+
 
 export default function Card({src,name,description,price,id} : CardType) {
 

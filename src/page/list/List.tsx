@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Card, { CardType } from "../../components/main/Card";
-import { collection, getDocs, limit, query, where } from "firebase/firestore";
+import { DocumentData, collection, getDocs, limit, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useRecoilValue } from "recoil";
 import { tagAtom } from "../../store/feature/tag/tag";
+import Card, { CardType, ProductType } from "../../components/main/Card";
 
 export default function List() {
 
@@ -77,9 +77,9 @@ export default function List() {
 
         const snapshot = await getDocs(fetchQuery);
 
-        const shoes = snapshot.docs.map((doc)=>{
+        const shoes = snapshot.docs.map((doc : DocumentData) : CardType => {
 
-            const {price,description,name,src,tag} : CardType = doc.data();
+            const {price,description,name,src,tag} : ProductType = doc.data();
 
             return {
                 price,

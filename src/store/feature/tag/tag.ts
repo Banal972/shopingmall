@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { TagType } from "../../@types/feature/tag/tagtype";
+import { TagType } from "../../@types/feature/tag/tagType";
 
 export const tagAtom = atom<TagType[]>({
     key : "tagAtom",
