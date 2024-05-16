@@ -5,12 +5,13 @@ export interface CardType {
   size?: number[];
   hit?: number;
   cate?: string;
-  price?: number;
+  price: number;
   detail?: string;
   src?: string;
   name?: string;
   tag?: string[];
   description?: string;
+  sale? : number,
   id? : string
 }
 
