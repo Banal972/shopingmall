@@ -4,21 +4,7 @@ import {Link} from "react-router-dom"
 import { auth, db } from "../../firebase";
 import moment from "moment";
 import { saleCalc, toNumber } from "../../lib/saleCalc";
-
-interface HistoryProduct {
-    size: string;
-    name: string;
-    price: number;
-    amount: number;
-    sale: number;
-    src: string;
-}
-
-interface HistoryType {
-    product : HistoryProduct[],
-    created : number,
-    id : string
-}
+import { HistoryType } from "../../@types/history";
 
 function History() {
 
