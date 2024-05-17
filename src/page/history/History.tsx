@@ -34,7 +34,7 @@ function History() {
                         </div>
                     </div>
 
-                    <Link to={'/'} className='flex items-center justify-center mt-6 bg-black text-white rounded text-center h-10 text-sm'>상세 정보</Link>
+                    <Link to={'more'} className='flex items-center justify-center mt-6 bg-black text-white rounded text-center h-10 text-sm'>상세 정보</Link>
                     
                 </li>
                 <li className="border-t border-t-[#eee] mt-10 pt-10">
@@ -62,7 +62,7 @@ function History() {
                         </div>
                     </div>
 
-                    <Link to={'/'} className='flex items-center justify-center mt-6 bg-black text-white rounded text-center h-10 text-sm'>상세 정보</Link>
+                    <Link to={'more'} className='flex items-center justify-center mt-6 bg-black text-white rounded text-center h-10 text-sm'>상세 정보</Link>
                     
                 </li>
             </ul>
