@@ -219,6 +219,24 @@ function Buy() {
                       </dl>
                     </div>
                   </li>
+                  <li className='flex mt-4 pt-4 border-t border-t-[#eee]'>
+                    <div className="w-[200px] h-[200px] rounded-md relative">
+                      <img 
+                        className="absolute left-0 top-0 w-full h-full object-cover"
+                        src="http://via.placeholder.com/640x480" 
+                        alt="" 
+                      />
+                    </div>
+                    <div className="pl-4">
+                      <div className="text-xs bg-[#e02626] inline-flex text-white w-[50px] h-[20px] items-center justify-center mb-2">SALE</div>
+                      <div className="text-xs inline-flex text-white w-[50px] h-[20px] items-center justify-center mb-2 bg-[#2fb7cf] ml-2">ONLY</div>
+                      <dl className="text-sm">
+                        <dt>asdad</dt>
+                        <dd className='mt-2 text-[#555]'>사이즈 - asdsad</dd>
+                        <dd className='mt-2 text-black font-medium'>1000원 <span className='font-normal text-[#555]'>2개</span></dd>
+                      </dl>
+                    </div>
+                  </li>
                   
                   {/* {
                     buyItem.map((a,i)=>(
