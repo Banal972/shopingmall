@@ -12,6 +12,7 @@ import Bookmark from "./page/bookmark/Bookmark"
 import Cart from "./page/cart/Cart"
 import Buy from "./page/buy/Buy"
 import Complete from "./page/complete/Complete"
+import History from "./page/history/History"
 
 function App() {
   return(
@@ -27,6 +28,7 @@ function App() {
         <Route path="/cart" element={<Cart/>} />
         <Route path="/buy" element={<Buy/>} />
         <Route path="/complete" element={<Complete/>} />
+        <Route path="/history" element={<History/>} />
       </Routes>
       <Footer/>
     </>
