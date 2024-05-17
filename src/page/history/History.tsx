@@ -25,7 +25,7 @@ function History() {
             const {product,created} = doc.data();
             return {
                 product,
-                created : created.seconds * 1000,
+                created,
                 id : doc.id
             };
 

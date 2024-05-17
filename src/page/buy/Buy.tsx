@@ -3,10 +3,11 @@ import { buyAtom } from '../../store/feature/buy/buy'
 import { db } from '../../firebase';
 import { useEffect, useState } from 'react';
 import useGetUser from '../../hooks/useGetUser';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { useForm } from 'react-hook-form';
 import { saleCalc, toNumber } from '../../lib/saleCalc';
 import { useNavigate } from 'react-router-dom';
+import { FirebaseError } from 'firebase/app';
 
 function Buy() {
 
@@ -80,11 +81,51 @@ function Buy() {
     fetchUser();
   },[user]);
 
-  const onSubmitHandler = (event : any)=>{
+  const onSubmitHandler = async (event : any)=>{
 
     const {delivery,deliveryInput} = event;
-    console.log(buyValue,addr,totalPay,pay,delivery,deliveryInput);
-    navigate('/complete');
+    // console.log(buyValue,addr,totalPay,pay,delivery,deliveryInput);
+
+    if(!user) return;
+
+    const product = buyValue.map((e)=>{
+      return {
+        amount : e.amount,
+        size: e.size,
+        src : e.product.src,
+        name : e.product.name,
+        price : e.product.price,
+        sale : e.product.sale || 0,
+      }
+    });
+    
+    try {
+
+      await addDoc(collection(db,"history"),{
+        addr2 : addr.addr2,
+        created : Date.now(),
+        delivery,
+        deliveryInput,
+        email : user.email,
+        fullAddress : addr.fullAddress,
+        name : user.displayName,
+        pay,
+        product : product,
+        total : totalPay.total,
+        totalProduct : totalPay.totalProduct,
+        totalSale : totalPay.totalSale,
+        userId : user.uid,
+        zipcode : addr.zipcode
+      });
+
+      navigate('/complete');
+
+    }
+    catch(e){
+      if(e instanceof FirebaseError){
+        console.log(e);
+      }
+    }
 
   }
 

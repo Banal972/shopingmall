@@ -15,10 +15,8 @@ function More() {
       if(!id) return;
       const fetchQuery = await getDoc(doc(db, "history", String(id)));
       const data = fetchQuery.data() as HistoryMoreType;
-      const {seconds} : any = data.created;
       setHistory({
         ...data,
-        created : seconds * 1000,
         id
       });
   }
