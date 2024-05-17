@@ -35,7 +35,7 @@ function App() {
         <Route path="/complete" element={<Complete/>} />
         <Route path="/history">
           <Route index element={<History/>} />
-          <Route path="more" element={<More/>} />
+          <Route path="more/:id" element={<More/>} />
         </Route>
       </Routes>
       <Footer/>

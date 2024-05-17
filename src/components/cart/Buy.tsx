@@ -1,44 +1,32 @@
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { cartAtom } from "../../store/feature/cart/cart";
+import { buyAtom } from "../../store/feature/buy/buy";
 
 export default function Buy({checkItem} : {checkItem : string[]}) {
   
     // 네비게이터
     const navigate = useNavigate();
-  
-    // 유저 가져오기
-    const user = auth.currentUser;
-  
     const [cart,setCart] = useRecoilState(cartAtom);
+    const setBuy = useSetRecoilState(buyAtom);
   
     // 구매버튼
-    /* const buyBtn = ()=>{
+    const buyBtn = ()=>{
+
+      const user = auth.currentUser;
+
+      if(!user) {
+        alert('로그인을 해야합니다.');
+        return navigate('/login');
+      }
       
-      if(userData && authLogin(userData,navigate)){
-  
-        const buy :BuyType[] = [];
-  
-        cart.forEach(e=>{
-  
-          const data = {
-            product_id : e.id,
-            product_size : e.size,
-            product_amount: e.amount,
-          }
-  
-          buy.push(data);
-  
-        });
-  
-        if(window.confirm('상품을 구매하시겠습니까?')){
-          navigate('/buy',{state : {type : "cart", buy}});
-        }
-  
+      if(window.confirm('상품을 구매하시겠습니까?')){
+        setBuy(cart);
+        return navigate('/buy');
       }
   
-    } */
+    }
 
     const removeHanlder = ()=>{
         if(checkItem.length <= 0){
@@ -57,8 +45,14 @@ export default function Buy({checkItem} : {checkItem : string[]}) {
   
     return (
       <div className="flex justify-end mt-6">
-        <button onClick={removeHanlder} className="border w-32 h-10 font-bold cursor-pointer text-base bg-[#e02626] text-white border-[#e02626]">선택삭제</button>
-        <button className="bg-black border border-black text-white w-32 h-10 font-bold cursor-pointer text-base ml-5">결제하기</button>
+        <button 
+          className="border w-32 h-10 font-bold cursor-pointer text-base bg-[#e02626] text-white border-[#e02626]"
+          onClick={removeHanlder}
+        >선택삭제</button>
+        <button 
+          className="bg-black border border-black text-white w-32 h-10 font-bold cursor-pointer text-base ml-5"
+          onClick={buyBtn}
+        >결제하기</button>
       </div>
     )
 }
