@@ -14,6 +14,7 @@ import Buy from "./page/buy/Buy"
 import Complete from "./page/complete/Complete"
 import History from "./page/history/History"
 import More from "./page/history/More"
+import Write from "./page/detail/Write"
 
 function App() {
   return(
@@ -22,7 +23,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Main/>}/>
         <Route path="/list/:cate" element={<List/>}/>
-        <Route path="/detail/:id" element={<Detail/>}/>
+        <Route path="/detail">
+          <Route path=":id" element={<Detail/>} />
+          <Route path="write/:id" element={<Write/>} />
+        </Route>
         <Route path="/login" element={<PublicRoute><Login/></PublicRoute>}/>
         <Route path="/sign" element={<PublicRoute><Sign/></PublicRoute>}/>
         <Route path="/bookmark" element={<PrivateRoute><Bookmark/></PrivateRoute>}/>

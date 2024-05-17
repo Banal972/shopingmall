@@ -48,7 +48,7 @@ export default function Inquiry({id} : {id : string}) {
 
             <ul className="border-b border-b-[#999] pb-6">
                 {
-                    [0,1].map((e,index)=>(
+                    [0,1].map((_,index)=>(
                         <li className={`${index !== 0 ? "mt-6 pt-6 border-t border-t-[#000]" : ""}`}>
                             <p className="text-xs">작성자 - 이름</p>
                             <h2 className="text-xl mt-1 font-bold">타이틀</h2>
@@ -70,7 +70,7 @@ export default function Inquiry({id} : {id : string}) {
             </ul>
 
             <Link
-                to={'/write'}
+                to={`/detail/write/${id}`}
                 className="flex items-center justify-center ml-auto mt-6 w-16 h-7 text-sm bg-black text-white cursor-pointer font-medium"
             >등록</Link>
 
