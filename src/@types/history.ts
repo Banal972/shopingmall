@@ -10,6 +10,7 @@ export interface HistoryProduct {
 export interface HistoryType {
     product : HistoryProduct[],
     created : number,
+    id? : string
 }
 
 export interface HistoryMoreType extends HistoryType {
@@ -25,5 +26,4 @@ export interface HistoryMoreType extends HistoryType {
     zipcode : string;
     email : string;
     pay : string;
-    id? : string
 }

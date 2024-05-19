@@ -15,6 +15,7 @@ import Complete from "./page/complete/Complete"
 import History from "./page/history/History"
 import More from "./page/history/More"
 import Write from "./page/detail/Write"
+import Edit from "./page/detail/Edit"
 
 function App() {
   return(
@@ -26,6 +27,7 @@ function App() {
         <Route path="/detail">
           <Route path=":id" element={<Detail/>} />
           <Route path="write/:id" element={<Write/>} />
+          <Route path="edit/:id" element={<Edit/>} />
         </Route>
         <Route path="/login" element={<PublicRoute><Login/></PublicRoute>}/>
         <Route path="/sign" element={<PublicRoute><Sign/></PublicRoute>}/>

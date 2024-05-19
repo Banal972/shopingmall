@@ -1,22 +1,24 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
-import { addDoc, collection, doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { FirebaseError } from 'firebase/app';
+import { InquiryType } from '../../@types/inquiry';
 import { ProductType } from '../../components/main/Card';
 
 
-function Write() {
+function Edit() {
 
     const editorRef = useRef<Editor>(null);
     const {id} = useParams();
     const navigate = useNavigate();
     const [name,setName] = useState('');
+    const [productId,setProductId] = useState('');
 
-    const {register,handleSubmit} = useForm();
+    const {register,handleSubmit,setValue} = useForm();
 
     const onSumbitHanlder = async (event : any)=>{
 
@@ -32,19 +34,18 @@ function Write() {
         }
         
         try {
-            await addDoc(
-                collection(db,"inquiry"),
+            await updateDoc(
+                doc(db,"inquiry",id),
                 {
                     title,
                     content,
-                    productId : id,
                     writer : user.displayName,
                     created : Date.now(),
                     userId : user.uid
                 }
             );
-            alert('작성이 완료 되었습니다.');
-            return navigate(`/detail/${id}`);
+            alert('수정이 완료 되었습니다.');
+            return navigate(`/detail/${productId}`);
         }
         catch(e){
             if(e instanceof FirebaseError ){
@@ -56,7 +57,13 @@ function Write() {
 
     const fetch = async ()=>{
         if(!id) return;
-        const detailQuery = await getDoc(doc(db, "shoes", String(id)));
+        const inquiryQuery = await getDoc(doc(db, "inquiry", String(id)));
+        const inquiry = inquiryQuery.data() as InquiryType;
+        setValue('title',inquiry.title);
+        setProductId(inquiry.productId);
+        editorRef.current?.getInstance().setHTML(inquiry.content);
+
+        const detailQuery = await getDoc(doc(db, "shoes", inquiry.productId));
         const {name} = detailQuery.data() as ProductType;
         setName(name);
     }
@@ -97,19 +104,17 @@ function Write() {
 
                         <div className="editor h-[450px]">
                             <Editor
-                                ref={editorRef}
-                                initialValue={" "}
-                                placeholder="내용을 작성해주세요."
-                                previewStyle="vertical"
-                                hideModeSwitch={true}
                                 toolbarItems={
                                     [
                                         ['heading', 'bold', 'italic', 'strike'],
                                         ['hr', 'quote'],
                                     ]
                                 }
-                                initialEditType="WYSIWYG"
+                                hideModeSwitch={true}
                                 height="100%"
+                                initialEditType="wysiwyg"
+                                placeholder="내용을 입력해 주세요."
+                                ref={editorRef}
                             />
                         </div>
 
@@ -127,4 +132,4 @@ function Write() {
     )
 }
 
-export default Write
+export default Edit

@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react"
 import {Link} from "react-router-dom"
 import { auth, db } from "../../firebase";
@@ -15,7 +15,8 @@ function History() {
 
         const fetchQuery = query(
             collection(db,"history"),
-            where("userId","==",user?.uid)
+            where("userId","==",user?.uid),
+            orderBy('created',"desc")
         );
 
         const snapshot = await getDocs(fetchQuery);
