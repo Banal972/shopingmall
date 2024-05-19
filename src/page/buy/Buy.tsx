@@ -1,13 +1,15 @@
-import { useRecoilValue} from 'recoil'
+import { useRecoilValue, useSetRecoilState} from 'recoil'
 import { buyAtom } from '../../store/feature/buy/buy'
 import { db } from '../../firebase';
 import { useEffect, useState } from 'react';
 import useGetUser from '../../hooks/useGetUser';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { useForm } from 'react-hook-form';
-import { saleCalc, toNumber } from '../../lib/saleCalc';
+import { toNumber } from '../../lib/saleCalc';
 import { useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
+import { completeAtom } from '../../store/feature/complete/complete';
+import { HistoryMoreType } from '../../@types/history';
 
 function Buy() {
 
@@ -15,6 +17,7 @@ function Buy() {
   const {register,handleSubmit,watch} = useForm();
   const deliveryWatch = watch('delivery');
   const buyValue = useRecoilValue(buyAtom);
+  const setComplete = useSetRecoilState(completeAtom);
   const user = useGetUser();  
   const [addr,setAddr] = useState({
     zipcode : "",
@@ -98,27 +101,35 @@ function Buy() {
         sale : e.product.sale || 0,
       }
     });
+
+    console.log(product);
     
     try {
 
-      await addDoc(collection(db,"history"),{
+      const {displayName,email,uid} = user;
+
+      const addData : HistoryMoreType = {
         addr2 : addr.addr2,
-        created : Date.now(),
-        delivery,
-        deliveryInput,
-        email : user.email,
         fullAddress : addr.fullAddress,
-        name : user.displayName,
+        zipcode : addr.zipcode,
+        created : Date.now(),
+        delivery : delivery || "",
+        deliveryInput : deliveryInput || "",
+        email : `${email}`,
+        deliveryName : `${displayName}`,
         pay,
         product : product,
         total : totalPay.total,
         totalProduct : totalPay.totalProduct,
         totalSale : totalPay.totalSale,
-        userId : user.uid,
-        zipcode : addr.zipcode
-      });
+        userId : uid,
+      }
 
-      navigate('/complete');
+      await addDoc(collection(db,"history"),addData);
+      setComplete(addData);
+
+      alert('구매가 완료 되었습니다.');
+      return navigate('/complete');
 
     }
     catch(e){
@@ -129,6 +140,9 @@ function Buy() {
 
   }
 
+  useEffect(()=>{
+    window.scrollTo(0,0);
+  },[]);
 
   return (
     <>

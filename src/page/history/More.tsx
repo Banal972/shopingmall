@@ -87,7 +87,7 @@ function More() {
 
               <ul className='mt-5 text-sm text-[#555]'>
                 <li className="flex"><p>주문자</p> <span className="ml-auto text-black text-right
-                  leading-snug break-keep">{history.name}</span></li>
+                  leading-snug break-keep">{history.deliveryInput}</span></li>
                 <li className="flex mt-3"><p>이메일</p> <span className="ml-auto text-black text-right
                   leading-snug break-keep">{history.email}</span></li>
               </ul>

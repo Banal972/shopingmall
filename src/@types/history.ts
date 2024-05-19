@@ -1,5 +1,5 @@
 export interface HistoryProduct {
-    size: string;
+    size: number;
     name: string;
     price: number;
     amount: number;
@@ -10,7 +10,6 @@ export interface HistoryProduct {
 export interface HistoryType {
     product : HistoryProduct[],
     created : number,
-    id : string
 }
 
 export interface HistoryMoreType extends HistoryType {
@@ -24,7 +23,7 @@ export interface HistoryMoreType extends HistoryType {
     totalSale : number;
     userId : string;
     zipcode : string;
-    name : string;
     email : string;
     pay : string;
+    id? : string
 }
