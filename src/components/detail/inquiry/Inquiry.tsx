@@ -1,10 +1,11 @@
-import { collection, deleteDoc, doc, getDocs, query, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../../../firebase";
 import { InquiryType } from "../../../@types/inquiry";
 import moment from "moment";
 import { FirebaseError } from "firebase/app";
+import { Unsubscribe } from "firebase/database";
 
 export default function Inquiry({id} : {id : string}) {
     
@@ -40,29 +41,44 @@ export default function Inquiry({id} : {id : string}) {
         
     }
 
-    const fetch = async ()=> {
-        if(!db) return;
-        const inquiryQuery = query(
-            collection(db,"inquiry"),
-            where("productId","==",id)
-        );
-        const snapshot = await getDocs(inquiryQuery);
-
-        const doc = snapshot.docs.map((doc)=>{
-            const data = doc.data() as InquiryType;
-
-            return {
-                ...data,
-                id : doc.id
-            }
-
-        });
-
-        setInquirys(doc);
-    }
-
     useEffect(()=>{
+
+        let unsubscribe : Unsubscribe | null = null;
+
+        const fetch = async ()=> {
+
+            if(!db) return;
+            const inquiryQuery = query(
+                collection(db,"inquiry"),
+                where("productId","==",id)
+            );
+
+            // const snapshot = await getDocs(inquiryQuery);
+    
+            unsubscribe = await onSnapshot(inquiryQuery,(snapshot)=>{
+            
+                const doc = snapshot.docs.map((doc)=>{
+                    const data = doc.data() as InquiryType;
+        
+                    return {
+                        ...data,
+                        id : doc.id
+                    }
+        
+                });
+        
+                setInquirys(doc);
+                
+            });
+
+        }
+
         fetch();
+
+        return ()=>{
+            unsubscribe && unsubscribe();
+        }
+        
     },[]);
 
     return (
@@ -70,26 +86,35 @@ export default function Inquiry({id} : {id : string}) {
 
             <ul className="border-b border-b-[#999] pb-6">
                 {
-                    inquirys.map((inquiry,index)=>(
-                        <li className={`${index !== 0 ? "mt-6 pt-6 border-t border-t-[#000]" : ""}`}>
-                            <p className="text-xs">작성자 - {inquiry.writer}</p>
-                            <h2 className="text-xl mt-1 font-bold">{inquiry.title}</h2>
-                            <p className="text-sm mt-3 text-[#555]">{moment(inquiry.created).format("YYYY/MM/DD")}</p>
-                            {
-                                user?.uid === inquiry.userId &&
-                                <div className="flex justify-end">
-                                    <button 
-                                        className="text-sm w-16 h-7 bg-[#26a8e0] text-white cursor-pointer"
-                                        onClick={()=>updateHanlder(inquiry.id as string)}
-                                    >수정</button>
-                                    <button 
-                                        className="text-sm w-16 h-7 bg-[#e02626] text-white cursor-pointer ml-3"
-                                        onClick={()=>delHandler(inquiry.id as string)}
-                                    >삭제</button>
-                                </div> 
-                            }
-                        </li>
-                    ))
+                    inquirys.length > 0 
+                    ?
+                        (
+                            inquirys.map((inquiry,index)=>(
+                                <li className={`${index !== 0 ? "mt-6 pt-6 border-t border-t-[#000]" : ""}`}>
+                                    <p className="text-xs">작성자 - {inquiry.writer}</p>
+                                    <h2 className="text-xl mt-1 font-bold">{inquiry.title}</h2>
+                                    <p className="text-sm mt-3 text-[#555]">{moment(inquiry.created).format("YYYY/MM/DD")}</p>
+                                    {
+                                        user?.uid === inquiry.userId &&
+                                        <div className="flex justify-end">
+                                            <button 
+                                                className="text-sm w-16 h-7 bg-[#26a8e0] text-white cursor-pointer"
+                                                onClick={()=>updateHanlder(inquiry.id as string)}
+                                            >수정</button>
+                                            <button 
+                                                className="text-sm w-16 h-7 bg-[#e02626] text-white cursor-pointer ml-3"
+                                                onClick={()=>delHandler(inquiry.id as string)}
+                                            >삭제</button>
+                                        </div> 
+                                    }
+                                </li>
+                            ))
+                        )
+                    :
+                        (
+                            <p className="text-center">게시글이 존재하지 않습니다.</p>
+                        )
+                    
                 }
             </ul>
 
