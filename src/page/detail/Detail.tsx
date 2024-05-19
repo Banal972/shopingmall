@@ -3,7 +3,7 @@ import Popular from "../../components/detail/popular/Popular";
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import { DetailType, ProductType } from "../../components/main/Card";
+import { DetailType, ProductType } from "../../components/common/Card/Card";
 import Sticky from "../../components/detail/sticky/Sticky";
 import Inquiry from "../../components/detail/inquiry/Inquiry";
 

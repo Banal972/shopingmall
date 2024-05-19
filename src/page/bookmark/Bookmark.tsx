@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import Card, { CardType } from "../../components/main/Card";
+import Card from "../../components/common/Card/Card";
 import { collection, getDoc, getDocs, query, where, doc } from "firebase/firestore";
 import { auth, db } from "../../firebase";
-import { FirebaseError } from "firebase/app";
 
 export default function Bookmark() {
 
-  const [bookmark,setBookmark] = useState<CardType[]>([]);
+  const [bookmarks,setBookmarks] = useState<any[]>([]);
 
   const fetch = async ()=>{
 
@@ -20,24 +19,19 @@ export default function Bookmark() {
     
     const snapshot = await getDocs(fetchQuery);
 
-    snapshot.docs.forEach( async (docs) => {
-      const {bookmark} = docs.data();
-      
-      for (const docid of bookmark){
-        try {
-          const docRef = doc(db,"shoes",docid);
-          const docSnapshot = await getDoc(docRef);
-          const data = docSnapshot.data();
-          setBookmark([...bookmark,data]);
-        }
-        catch(e){
-          if(e instanceof FirebaseError){
-            console.log(e);
-          }
-        }
-      }
+    const {bookmark} = snapshot.docs[0].data();
 
+    const bookPromise = bookmark.map( async (id : string)=>{
+      const data = await getDoc(doc(db,"shoes",id));
+      return {
+        ...data.data(),
+        id
+      }
     });
+
+    const results = await Promise.all(bookPromise);
+
+    setBookmarks(results);
 
   }
 
@@ -56,9 +50,9 @@ export default function Bookmark() {
 
             <div className="grid grid-cols-5 gap-x-7 gap-y-16 mt-12">
               {
-                bookmark.length > 0
+                bookmarks.length > 0
                 ?
-                  bookmark.map((e)=><Card key={e.id+"11"} {...e}/>)
+                  bookmarks.map((item,index)=><Card key={`${item.id}book${index}`} {...item}/>)
                 :
                   null
               }

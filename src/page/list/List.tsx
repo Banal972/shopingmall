@@ -4,7 +4,8 @@ import { DocumentData, collection, getDocs, limit, query, where } from "firebase
 import { db } from "../../firebase";
 import { useRecoilValue } from "recoil";
 import { tagAtom } from "../../store/feature/tag/tag";
-import Card, { CardType, ProductType } from "../../components/main/Card";
+import Card from "../../components/common/Card/Card";
+import { CardType, ProductType } from "../../@types/card";
 
 export default function List() {
 

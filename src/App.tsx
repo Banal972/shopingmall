@@ -26,18 +26,18 @@ function App() {
         <Route path="/list/:cate" element={<List/>}/>
         <Route path="/detail">
           <Route path=":id" element={<Detail/>} />
-          <Route path="write/:id" element={<Write/>} />
-          <Route path="edit/:id" element={<Edit/>} />
+          <Route path="write/:id" element={<PrivateRoute><Write/></PrivateRoute>} />
+          <Route path="edit/:id" element={<PrivateRoute><Edit/></PrivateRoute>} />
         </Route>
         <Route path="/login" element={<PublicRoute><Login/></PublicRoute>}/>
         <Route path="/sign" element={<PublicRoute><Sign/></PublicRoute>}/>
         <Route path="/bookmark" element={<PrivateRoute><Bookmark/></PrivateRoute>}/>
         <Route path="/cart" element={<Cart/>} />
-        <Route path="/buy" element={<Buy/>} />
-        <Route path="/complete" element={<Complete/>} />
+        <Route path="/buy" element={<PrivateRoute><Buy/></PrivateRoute>} />
+        <Route path="/complete" element={<PrivateRoute><Complete/></PrivateRoute>} />
         <Route path="/history">
-          <Route index element={<History/>} />
-          <Route path="more/:id" element={<More/>} />
+          <Route index element={<PrivateRoute><History/></PrivateRoute>} />
+          <Route path="more/:id" element={<PrivateRoute><More/></PrivateRoute>} />
         </Route>
       </Routes>
       <Footer/>
