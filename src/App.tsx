@@ -10,6 +10,12 @@ import PublicRoute from "./components/auth/PublicRoute"
 import PrivateRoute from "./components/auth/PrivateRoute"
 import Bookmark from "./page/bookmark/Bookmark"
 import Cart from "./page/cart/Cart"
+import Buy from "./page/buy/Buy"
+import Complete from "./page/complete/Complete"
+import History from "./page/history/History"
+import More from "./page/history/More"
+import Write from "./page/detail/Write"
+import Edit from "./page/detail/Edit"
 
 function App() {
   return(
@@ -18,11 +24,21 @@ function App() {
       <Routes>
         <Route path="/" element={<Main/>}/>
         <Route path="/list/:cate" element={<List/>}/>
-        <Route path="/detail/:id" element={<Detail/>}/>
+        <Route path="/detail">
+          <Route path=":id" element={<Detail/>} />
+          <Route path="write/:id" element={<Write/>} />
+          <Route path="edit/:id" element={<Edit/>} />
+        </Route>
         <Route path="/login" element={<PublicRoute><Login/></PublicRoute>}/>
         <Route path="/sign" element={<PublicRoute><Sign/></PublicRoute>}/>
         <Route path="/bookmark" element={<PrivateRoute><Bookmark/></PrivateRoute>}/>
         <Route path="/cart" element={<Cart/>} />
+        <Route path="/buy" element={<Buy/>} />
+        <Route path="/complete" element={<Complete/>} />
+        <Route path="/history">
+          <Route index element={<History/>} />
+          <Route path="more/:id" element={<More/>} />
+        </Route>
       </Routes>
       <Footer/>
     </>

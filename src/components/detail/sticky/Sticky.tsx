@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { DetailType } from "../../main/Card";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { cartAtom } from "../../../store/feature/cart/cart";
 import { useNavigate } from "react-router-dom";
+import { buyAtom } from "../../../store/feature/buy/buy";
 
 export default function Sticky({detail} : {detail : DetailType}) {
 
@@ -61,6 +62,29 @@ export default function Sticky({detail} : {detail : DetailType}) {
             }else {
                 return;
             }
+
+        }
+
+    }
+
+    // 구매하기
+    const setBuy = useSetRecoilState(buyAtom);
+    const buyClickHandler = ()=>{
+        if(clickSize === 0){
+            return alert('사이즈를 선택해주세요');
+        }
+        
+        if(confirm(`${detail.name}의 \n${clickSize}사이즈 수량 \n${amount}개를 구매하시겠습니까?`)){
+
+            const data = {
+                product : detail,
+                id : detail.id,
+                size  : clickSize,
+                amount : amount
+            }
+
+            setBuy([data]);
+            navigate('/buy');
 
         }
 
@@ -139,7 +163,7 @@ export default function Sticky({detail} : {detail : DetailType}) {
 
             <ul>
                 <li className="text-center text-base border text-white border-[#000] bg-[#000] py-2 cursor-pointer rounded font-bold" onClick={cartClickHanlder}>장바구니</li>
-                <li className="text-center text-base border border-[#e9e9e9] bg-[#e9e9e9] py-2 cursor-pointer rounded font-bold mt-4" onClick={()=>{}}>구매하기</li>
+                <li className="text-center text-base border border-[#e9e9e9] bg-[#e9e9e9] py-2 cursor-pointer rounded font-bold mt-4" onClick={buyClickHandler}>구매하기</li>
             </ul>
 
         </div>
