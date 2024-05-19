@@ -2,7 +2,7 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
-import Card, { CardType, ProductType } from "../../main/Card";
+import Card, { CardType, ProductType } from "../../common/Card/Card";
 import { DocumentData, collection, getDocs, limit, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
 

@@ -7,7 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { FirebaseError } from 'firebase/app';
 import { InquiryType } from '../../@types/inquiry';
-import { ProductType } from '../../components/main/Card';
+import { ProductType } from '../../components/common/Card/Card';
 
 
 function Edit() {

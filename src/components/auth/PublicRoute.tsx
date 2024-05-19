@@ -1,9 +1,10 @@
 import { Navigate } from "react-router-dom";
-import { auth } from "../../firebase"
+import {useAuthState} from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
 
 export default function PublicRoute({children} : {children : React.ReactNode}) {
 
-    const user = auth.currentUser;
+    const [user] = useAuthState(auth);
 
     if(!user){
         return <>{children}</>
