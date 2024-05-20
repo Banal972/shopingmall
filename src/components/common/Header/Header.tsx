@@ -22,7 +22,7 @@ export default function Header() {
   },[location.pathname]);
 
   return (
-    <header className="fixed z-50 top-0 left-0 w-full text-white transition-[background]">
+    <header className="fixed z-50 top-0 left-0 w-full text-black transition-[background]">
       
       <div className="max-w-[1600px] w-[95%] mx-auto h-[75px] items-center flex justify-between">
         <div className="relative z-10 filter-[invert(1)]">
@@ -80,9 +80,9 @@ export default function Header() {
 
           {/* 메뉴 */}
           <div className={`relative w-6 h-3 ml-10 cursor-pointer z-20`} onClick={()=>setFixMenu(!fixMenu)}>
-            <span className="absolute left-0 top-0 w-full -translate-y-1/2 bg-white block h-[2px]"></span>
-            <span className="absolute left-0 w-full -translate-y-1/2 bg-white block h-[2px] top-1/2"></span>
-            <span className="absolute left-0 w-full -translate-y-1/2 bg-white block h-[2px] top-full"></span>
+            <span className="absolute left-0 top-0 w-full -translate-y-1/2 bg-black block h-[2px]"></span>
+            <span className="absolute left-0 w-full -translate-y-1/2 bg-black block h-[2px] top-1/2"></span>
+            <span className="absolute left-0 w-full -translate-y-1/2 bg-black block h-[2px] top-full"></span>
           </div>
 
         </div>

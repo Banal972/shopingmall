@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper,SwiperSlide } from "swiper/react";
-import { CardType } from "../../common/Card/Card";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
+import { CardType } from "../../../@types/card";
+
+const navigateStyle = "text-3xl md:text-5xl cursor-pointer flex items-center";
 
 export default function Only() {
-
-    const [] = useState([]);
 
     const [only,setOnly] = useState<CardType[]>([]);
 
@@ -24,7 +24,7 @@ export default function Only() {
 
         const shoes = snapshot.docs.map((doc)=>{
 
-            const {price,description,name,src} : CardType = doc.data();
+            const {price,description,name,src} = doc.data() as CardType;
 
             return {
                 price,
@@ -47,30 +47,30 @@ export default function Only() {
   return (
     <section className="mt-24">
         <div className="w-[95%] mx-auto max-w-[1600px]">
-            <div className="flex">
+            <div className="md:flex">
                 <div className="flex-1 flex flex-col justify-between">
 
                     <dl>
                         <dt className="text-lg font-normal text-gray-900">
                             PROMOTION
                         </dt>
-                        <dd className="text-5xl font-bold mt-11">
+                        <dd className="text-3xl md:text-5xl font-bold mt-5 md:mt-11">
                             단독 상품
                         </dd>
                     </dl>
 
-                    <div className="flex items-center">
-                        <button className="text-5xl cursor-pointer flex items-center"><AiOutlineLeft/></button>
-                        <button className="text-5xl cursor-pointer flex items-center ml-4"><AiOutlineRight/></button>
+                    <div className="flex items-center gap-4 justify-end md:justify-start">
+                        <button className={navigateStyle}><AiOutlineLeft/></button>
+                        <button className={navigateStyle}><AiOutlineRight/></button>
                     </div>
 
                 </div>
 
-                <Swiper className="flex-[3.5] ml-12"
+                <Swiper className="mt-10 md:mt-0 flex-[3.5] ml-12"
                     modules={[Navigation,Pagination,Autoplay]}
                     slidesPerView={1.5}
                     spaceBetween={20}
-                    loop
+                    loop={true}
                     breakpoints={{
                         480 : {
                             slidesPerView :2.5,
