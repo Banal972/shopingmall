@@ -3,12 +3,15 @@ import { BsCart2, BsPerson } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import { auth } from "../../../firebase";
 import useGetUser from "../../../hooks/useGetUser";
+import { useRecoilValue } from "recoil";
+import { cartAtom } from "../../../store/feature/cart/cart";
 
 export default function Header() {
 
   const user = useGetUser();
   const [fixMenu,setFixMenu] = useState(false);
   const [userMenu,setUserMenu] = useState(false);
+  const cart = useRecoilValue(cartAtom);
 
   const location = useLocation();
 
@@ -46,7 +49,8 @@ export default function Header() {
             {/* 장바구니 */}
             <div className="text-2xl relative">
               {
-                <p className='absolute right-0 top-0 bg-red-500 text-white text-xs w-[12.5px] h-[12.5px] flex items-center justify-center rounded-full overflow-hidden translate-x-1/4 -translate-y-1/4'>{1}</p>
+                cart.length > 0 &&
+                  <p className='absolute right-0 top-0 bg-red-500 text-white text-xs w-[12.5px] h-[12.5px] flex items-center justify-center rounded-full overflow-hidden translate-x-1/4 -translate-y-1/4'>{cart.length}</p>
               }
               <Link to={"/cart"}><BsCart2/></Link>
             </div>

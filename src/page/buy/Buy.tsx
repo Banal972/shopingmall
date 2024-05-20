@@ -203,7 +203,7 @@ function Buy() {
               <div className="mt-6 pt-6 border-t border-t-[#eee]">
 
                 <h4 className='flex'>
-                  배송 정보 <button className='ml-auto text-[#5190BC] cursor-pointer'>변경하기</button>
+                  배송 정보 <button type='button' className='ml-auto text-[#5190BC] cursor-pointer'>변경하기</button>
                 </h4>
 
                 <ul className='mt-5 text-sm'>
@@ -250,7 +250,7 @@ function Buy() {
 
               <div className="mt-6 pt-6 border-t border-t-[#eee]">
                 <h4 className='font-semibold text-xl flex'>결제 방법</h4>
-                <div className="grid grid-cols-4 gap-2 mt-5">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-5">
                   {
                     ["간편결제","카드","가상계좌","휴대폰"].map((e,i)=>(
                       <button
