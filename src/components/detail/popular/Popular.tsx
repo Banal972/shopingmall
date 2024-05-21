@@ -2,9 +2,10 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
-import Card, { CardType, ProductType } from "../../common/Card/Card";
+import Card from "../../common/Card/Card";
 import { DocumentData, collection, getDocs, limit, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
+import { CardType, ProductType } from "../../../@types/card";
 
 export default function Popular({name,cate} : {name : string,cate : string}) {
     
@@ -55,7 +56,7 @@ export default function Popular({name,cate} : {name : string,cate : string}) {
                     <div className="flex items-center mt-6 relative">
                         <button className="left-0 -translate-x-full -translate-y-1/2 text-4xl absolute z-10 cursor-default"><AiOutlineLeft/></button>
                         <Swiper
-                            slidesPerView={4}
+                            slidesPerView={2}
                             spaceBetween={15}
                             modules={[Navigation,Autoplay]}
                             navigation={{
@@ -66,7 +67,7 @@ export default function Popular({name,cate} : {name : string,cate : string}) {
                                 delay : 3000,
                                 disableOnInteraction : false
                             }}
-                            loop
+                            loop={true}
                             speed={500}
                             breakpoints={{
                                 480 : {

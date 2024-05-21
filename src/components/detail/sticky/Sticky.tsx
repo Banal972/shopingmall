@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { DetailType } from "../../common/Card/Card";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { cartAtom } from "../../../store/feature/cart/cart";
 import { useNavigate } from "react-router-dom";
 import { buyAtom } from "../../../store/feature/buy/buy";
+import { DetailType } from "../../../@types/card";
+
+const dlstyle = "flex flex-col gap-3 lg:grid grid-cols-[90px_1fr] lg:items-center";
 
 export default function Sticky({detail} : {detail : DetailType}) {
 
@@ -91,18 +93,25 @@ export default function Sticky({detail} : {detail : DetailType}) {
     }
 
     return (
-        <div className="flex-[0.6] sticky top-32">
+        
+        <div className="flex-[0.6] md:sticky top-32">
 
-            <h2 className="font-semibold text-4xl">
+            <h2 className="font-semibold text-2xl lg:text-4xl">
                 {detail?.name}
             </h2>
 
-            <p className="mt-6 text-2xl font-medium">
+            <p className="mt-6 text-xl lg:text-2xl font-medium">
                 {
                     detail.sale ?
                     <>
-                        <span className="line-through text-xl">{detail.price.toLocaleString('ko-KR')}</span> 
-                        <span className="ml-3 text-red-500">
+                        <span 
+                            className="line-through text-xl"
+                        >
+                            {detail.price.toLocaleString('ko-KR')}
+                        </span> 
+                        <span 
+                            className="ml-3 text-red-500"
+                        >
                             { (detail.price - (detail.price * detail.sale / 100)).toLocaleString("ko-KR") }원
                         </span>
                     </>
@@ -115,14 +124,14 @@ export default function Sticky({detail} : {detail : DetailType}) {
 
             <div className="mt-8 py-12 border border-[#000] border-l-0 border-r-0">
                 
-                <dl className="grid grid-cols-[90px_1fr]">
+                <dl className={dlstyle}>
                     <dt className="text-base whitespace-nowrap font-medium flex-none">상품내용</dt>
                     <dd className="text-sm leading-5">
                         {detail?.description}
                     </dd>
                 </dl>
 
-                <dl className="mt-8 grid grid-cols-[90px_1fr] items-center">
+                <dl className={`${dlstyle} mt-8`}>
                     <dt className="text-base whitespace-nowrap font-medium flex-none">신발 사이즈</dt>
                     <dd className="text-sm leading-5 flex gap-1">
                         {
@@ -137,7 +146,7 @@ export default function Sticky({detail} : {detail : DetailType}) {
                     </dd>
                 </dl>
 
-                <dl className="mt-8 text-center grid grid-cols-[90px_1fr] items-center">
+                <dl className={`${dlstyle} mt-8`}>
                     <dt className="text-base whitespace-nowrap font-medium flex-none text-left">수량</dt>
                     <dd className="text-sm leading-5 flex border border-[#666] justify-between w-40">
                         <button 
@@ -152,7 +161,7 @@ export default function Sticky({detail} : {detail : DetailType}) {
                     </dd>
                 </dl>
 
-                <dl className="mt-8 text-center grid grid-cols-[90px_1fr] items-center">
+                <dl className={`${dlstyle} mt-8`}>
                     <dt className="text-base whitespace-nowrap font-medium flex-none text-left">배송</dt>
                     <dd className="text-sm leading-5 flex">
                         무료배송
