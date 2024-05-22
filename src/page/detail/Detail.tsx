@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import Popular from "../../components/detail/popular/Popular";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import Sticky from "../../components/detail/sticky/Sticky";
@@ -10,6 +10,7 @@ import { Viewer } from "@toast-ui/react-editor";
 
 export default function Detail() {
 
+    const viewerRef = useRef<Viewer>(null);
     const {id} = useParams();
     const [detail,setDetail] = useState<DetailType>();
     const [step,setStep] = useState(0);
@@ -22,6 +23,7 @@ export default function Detail() {
             ...data,
             id
         });
+        viewerRef.current?.getInstance().setMarkdown(data.detail);
     }
 
     useEffect(()=>{
@@ -70,7 +72,10 @@ export default function Detail() {
                             step === 0 &&
                                 detail &&
                                 <div className="mt-12 leading-snug text-base break-keep">
-                                    <Viewer initialValue={detail?.detail}/>
+                                    <Viewer 
+                                        initialValue={detail.detail}
+                                        ref={viewerRef}
+                                        />
                                 </div>
                         }
 

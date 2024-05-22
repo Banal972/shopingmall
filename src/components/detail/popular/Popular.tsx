@@ -1,4 +1,4 @@
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+// import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import { DocumentData, collection, getDocs, limit, query, where } from "firebase
 import { db } from "../../../firebase";
 import { CardType, ProductType } from "../../../@types/card";
 
-const arrowStyle = "-translate-y-1/2 text-4xl absolute z-10 cursor-default hidden md:block";
+// const arrowStyle = "-translate-y-1/2 text-4xl absolute z-10 cursor-default hidden md:block";
 
 export default function Popular({name,cate} : {name : string,cate : string}) {
     
@@ -56,7 +56,7 @@ export default function Popular({name,cate} : {name : string,cate : string}) {
                 popular.length > 4 
                 ?
                     <div className="flex items-center mt-6 relative">
-                        <button className={`left-0 -translate-x-full ${arrowStyle}`}><AiOutlineLeft/></button>
+                        {/* <button className={`left-0 -translate-x-full ${arrowStyle}`}><AiOutlineLeft/></button> */}
                         <Swiper
                             slidesPerView={2}
                             spaceBetween={15}
@@ -90,7 +90,7 @@ export default function Popular({name,cate} : {name : string,cate : string}) {
                                 ))
                             }
                         </Swiper>
-                        <button className={`right-0 translate-x-full -translate-y-1/2 ${arrowStyle}`}><AiOutlineRight/></button>
+                        {/* <button className={`right-0 translate-x-full -translate-y-1/2 ${arrowStyle}`}><AiOutlineRight/></button> */}
                     </div>
                 :
                     <div className="grid grid-cols-4 mt-6">
