@@ -203,7 +203,8 @@ function Buy() {
               <div className="mt-6 pt-6 border-t border-t-[#eee]">
 
                 <h4 className='flex'>
-                  배송 정보 <button type='button' className='ml-auto text-[#5190BC] cursor-pointer'>변경하기</button>
+                  배송 정보 
+                  {/* <button type='button' className='ml-auto text-[#5190BC] cursor-pointer'>변경하기</button> */}
                 </h4>
 
                 <ul className='mt-5 text-sm'>

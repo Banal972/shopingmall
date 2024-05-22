@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
 import { useDaumPostcodePopup } from 'react-daum-postcode';
 import { MdClose } from 'react-icons/md';
 
@@ -18,7 +18,7 @@ export default function Modal() {
   // 주소찾기
   const zipHandleComplete = (data : any) => {
         
-      let zipcode = data.zonecode;
+      // let zipcode = data.zonecode;
       let fullAddress = data.address;
       let extraAddress = '';
 
