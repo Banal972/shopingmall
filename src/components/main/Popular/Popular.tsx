@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from '../../common/Card/Card'
 import { collection, getDocs, limit, query, where } from 'firebase/firestore';
 import { db } from '../../../firebase';
@@ -51,7 +51,7 @@ export default function Popular() {
             
             <div className="grid gap-5 flex-1 grid-cols-1 mt-14 md:mt-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
                 {
-                    popular.length > 0 ? popular.map((el)=> <Card key={el.id} {...el} />) : null
+                    popular.length > 0 ? popular.map((el)=> <Card key={el.id} {...el}/>) : null
                 }
             </div>
         </div>

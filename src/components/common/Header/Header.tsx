@@ -11,6 +11,7 @@ export default function Header() {
   const user = useGetUser();
   const [fixMenu,setFixMenu] = useState(false);
   const [userMenu,setUserMenu] = useState(false);
+  const [white,setWhite] = useState(false);
   const cart = useRecoilValue(cartAtom);
 
   const location = useLocation();
@@ -22,19 +23,36 @@ export default function Header() {
 
   useEffect(()=>{
     setUserMenu(false);
+    setFixMenu(false);
+    
+    switch(location.pathname.split('/')[1]){
+      case "":
+        setWhite(true);
+        break;
+      case "list":
+        setWhite(true);
+        break;
+      case "bookmark":
+        setWhite(true);
+        break;
+      default :
+        setWhite(false);
+        break;
+    }
+
   },[location.pathname]);
 
   return (
-    <header className="fixed z-50 top-0 left-0 w-full text-black transition-[background]">
+    <header className={`absolute z-50 top-0 left-0 w-full transition-[background] ${white ? "text-white" : "text-black"}`}>
       
       <div className="max-w-[1600px] w-[95%] mx-auto h-[75px] items-center flex justify-between">
-        <div className="relative z-10 filter-[invert(1)]">
+        <div className={`relative z-10 ${white ? "invert" : ""}`}>
           <Link to={"/"}>
             <img src="/asset/image/logo.svg" alt="쇼핑몰 로고" width={50}/>
           </Link>
         </div>
 
-        <nav className="flex h-full font-medium text-base absolute left-1/2 -translate-x-1/2">
+        <nav className="hidden md:flex h-full font-medium text-base absolute left-1/2 -translate-x-1/2">
           <Link className="px-4 h-full flex items-center" to={"/list/999"}>BEST</Link>
           <Link className="px-4 h-full flex items-center" to={"/list/001"}>스니커즈</Link>
           <Link className="px-4 h-full flex items-center" to={"/list/002"}>스포츠</Link>
@@ -84,9 +102,9 @@ export default function Header() {
 
           {/* 메뉴 */}
           <div className={`relative w-6 h-3 ml-10 cursor-pointer z-20`} onClick={()=>setFixMenu(!fixMenu)}>
-            <span className="absolute left-0 top-0 w-full -translate-y-1/2 bg-black block h-[2px]"></span>
-            <span className="absolute left-0 w-full -translate-y-1/2 bg-black block h-[2px] top-1/2"></span>
-            <span className="absolute left-0 w-full -translate-y-1/2 bg-black block h-[2px] top-full"></span>
+            <span className={`absolute left-0 top-0 w-full -translate-y-1/2 block h-[2px] ${white ? "bg-white" : "bg-black"}`}></span>
+            <span className={`absolute left-0 w-full -translate-y-1/2 block h-[2px] top-1/2 ${white ? "bg-white" : "bg-black"}`}></span>
+            <span className={`absolute left-0 w-full -translate-y-1/2 block h-[2px] top-full ${white ? "bg-white" : "bg-black"}`}></span>
           </div>
 
         </div>
