@@ -6,6 +6,7 @@ import { db } from "../../firebase";
 import Sticky from "../../components/detail/sticky/Sticky";
 import Inquiry from "../../components/detail/inquiry/Inquiry";
 import { DetailType, ProductType } from "../../@types/card";
+import { Viewer } from "@toast-ui/react-editor";
 
 export default function Detail() {
 
@@ -67,7 +68,10 @@ export default function Detail() {
 
                         {
                             step === 0 &&
-                                <div className="mt-12 leading-snug text-base break-keep">{detail?.detail}</div>
+                                detail &&
+                                <div className="mt-12 leading-snug text-base break-keep">
+                                    <Viewer initialValue={detail?.detail}/>
+                                </div>
                         }
 
                         {
