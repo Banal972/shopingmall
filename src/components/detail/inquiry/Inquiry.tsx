@@ -1,6 +1,6 @@
 import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { auth, db } from "../../../firebase";
 import { InquiryType } from "../../../@types/inquiry";
 import moment from "moment";
