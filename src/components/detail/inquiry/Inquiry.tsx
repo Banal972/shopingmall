@@ -81,6 +81,14 @@ export default function Inquiry({id} : {id : string}) {
         
     },[]);
 
+    const onWriteRoute = ()=>{
+
+        if(!user) return alert('로그인을 해야합니다.');
+
+        navigate(`/detail/write/${id}`);
+
+    }
+
     return (
         <div className="mt-12">
 
@@ -118,10 +126,10 @@ export default function Inquiry({id} : {id : string}) {
                 }
             </ul>
 
-            <Link
-                to={`/detail/write/${id}`}
+            <button
+                onClick={onWriteRoute}
                 className="flex items-center justify-center ml-auto mt-6 w-16 h-7 text-sm bg-black text-white cursor-pointer font-medium"
-            >등록</Link>
+            >등록</button>
 
         </div>
     )
