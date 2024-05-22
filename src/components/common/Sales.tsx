@@ -1,4 +1,4 @@
-import { saleCalc, toNumber } from "../../lib/saleCalc";
+import { saleCalc, toNumber } from "@lib/saleCalc";
 
 // 세일 컴포넌트
 export default function SaleCalc({price, sale} : {price? : number, sale : number}) {

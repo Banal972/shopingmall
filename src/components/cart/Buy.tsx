@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { cartAtom } from "../../store/feature/cart/cart";
-import { buyAtom } from "../../store/feature/buy/buy";
+import { cartAtom } from "@store/feature/cart/cart";
+import { buyAtom } from "@store/feature/buy/buy";
 
 export default function Buy({checkItem} : {checkItem : string[]}) {
   

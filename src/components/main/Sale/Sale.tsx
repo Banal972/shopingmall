@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Card from "../../common/Card/Card";
+import Card from "@components/common/Card/Card"; 
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { AiOutlineSwapRight } from "react-icons/ai";

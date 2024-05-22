@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import Popular from "../../components/detail/popular/Popular";
+import Popular from "@components/detail/popular/Popular";
 import { useEffect, useRef, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import Sticky from "../../components/detail/sticky/Sticky";
-import Inquiry from "../../components/detail/inquiry/Inquiry";
+import Sticky from "@components/detail/sticky/Sticky";
+import Inquiry from "@components/detail/inquiry/Inquiry";
 import { DetailType, ProductType } from "../../@types/card";
 import { Viewer } from "@toast-ui/react-editor";
 

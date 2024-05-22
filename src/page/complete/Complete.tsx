@@ -1,8 +1,8 @@
 import { BsBoxSeam } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { completeAtom } from "../../store/feature/complete/complete";
-import { saleCalc, toNumber } from "../../lib/saleCalc";
+import { completeAtom } from "@store/feature/complete/complete";
+import { saleCalc, toNumber } from "@lib/saleCalc";
 
 export default function Complete() {
 

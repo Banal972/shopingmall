@@ -21,7 +21,16 @@
     "noFallthroughCasesInSwitch": true,
 
     /* Jest */
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "baseUrl": "src",
+    "paths": {
+      "@components/*" : ["components/*"],
+      "@hooks/*" : ["hooks/*"],
+      "@lib/*" : ["lib/*"],
+      "@page/*" : ["page/*"],
+      "@store/*" : ["store/*"],
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

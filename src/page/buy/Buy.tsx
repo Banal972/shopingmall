@@ -1,14 +1,14 @@
 import { useRecoilValue, useSetRecoilState} from 'recoil'
-import { buyAtom } from '../../store/feature/buy/buy'
+import { buyAtom } from '@store/feature/buy/buy'
 import { db } from '../../firebase';
 import { useEffect, useState } from 'react';
-import useGetUser from '../../hooks/useGetUser';
+import useGetUser from '@hooks/useGetUser';
 import { addDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { useForm } from 'react-hook-form';
-import { toNumber } from '../../lib/saleCalc';
+import { toNumber } from '@lib/saleCalc';
 import { useNavigate } from 'react-router-dom';
 import { FirebaseError } from 'firebase/app';
-import { completeAtom } from '../../store/feature/complete/complete';
+import { completeAtom } from '@store/feature/complete/complete';
 import { HistoryMoreType } from '../../@types/history';
 
 function Buy() {

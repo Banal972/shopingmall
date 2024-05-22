@@ -1,6 +1,7 @@
+import { CartType } from "@store/@types/feature/cart/cartType";
+import { cartAtom } from "@store/feature/cart/cart";
 import { useRecoilState } from "recoil";
-import { cartAtom } from "../../store/feature/cart/cart";
-import { CartType } from "../../store/@types/feature/cart/cartType";
+
 
 export default function Delete({elm} : {elm : CartType}) {
   

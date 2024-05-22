@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { cartAtom } from "../../../store/feature/cart/cart";
+import { cartAtom } from "@store/feature/cart/cart";
 import { useNavigate } from "react-router-dom";
-import { buyAtom } from "../../../store/feature/buy/buy";
+import { buyAtom } from "@store/feature/buy/buy";
 import { DetailType } from "../../../@types/card";
 
 const dlstyle = "flex flex-col gap-3 lg:grid grid-cols-[90px_1fr] lg:items-center";

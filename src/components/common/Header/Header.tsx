@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { BsCart2, BsPerson } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import { auth } from "../../../firebase";
-import useGetUser from "../../../hooks/useGetUser";
 import { useRecoilValue } from "recoil";
-import { cartAtom } from "../../../store/feature/cart/cart";
+import useGetUser from "@hooks/useGetUser";
+import { cartAtom } from "@store/feature/cart/cart";
 
 export default function Header() {
 
