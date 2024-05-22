@@ -45,8 +45,8 @@ export default function Header() {
   return (
     <header className={`absolute z-50 top-0 left-0 w-full transition-[background] ${white ? "text-white" : "text-black"}`}>
       
-      <div className="max-w-[1600px] w-[95%] mx-auto h-[75px] items-center flex justify-between">
-        <div className={`relative z-10 ${white ? "invert" : ""}`}>
+      <div className={`max-w-[1600px] w-[95%] mx-auto h-[55px] md:h-[75px] border-b md:border-none items-center flex justify-between ${white ? "border-white" : "border-black"}`}>
+        <div className={`w-8 md:w-auto relative z-10 ${white ? "invert" : ""}`}>
           <Link to={"/"}>
             <img src="/asset/image/logo.svg" alt="쇼핑몰 로고" width={50}/>
           </Link>
@@ -101,7 +101,7 @@ export default function Header() {
           </nav>
 
           {/* 메뉴 */}
-          <div className={`relative w-6 h-3 ml-10 cursor-pointer z-20`} onClick={()=>setFixMenu(!fixMenu)}>
+          <div className={`relative w-6 h-3 ml-5 md:ml-10 cursor-pointer z-20`} onClick={()=>setFixMenu(!fixMenu)}>
             <span className={`absolute left-0 top-0 w-full -translate-y-1/2 block h-[2px] ${white ? "bg-white" : "bg-black"}`}></span>
             <span className={`absolute left-0 w-full -translate-y-1/2 block h-[2px] top-1/2 ${white ? "bg-white" : "bg-black"}`}></span>
             <span className={`absolute left-0 w-full -translate-y-1/2 block h-[2px] top-full ${white ? "bg-white" : "bg-black"}`}></span>

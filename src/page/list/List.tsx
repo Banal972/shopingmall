@@ -110,7 +110,7 @@ export default function List() {
     return (
       <div className='box-border'>
   
-          <div className="h-[350px] md:h-[450px] text-center bg-no-repeat bg-right-bottom bg-cover bg-fixed bg-[url(/asset/image/list/listBg01.jpg)]"></div>
+          <div className="h-[350px] md:h-[450px] text-center bg-no-repeat bg-center md:bg-right-bottom bg-cover bg-fixed bg-[url(/asset/image/list/listBg01.jpg)]"></div>
   
           <div className="py-24 max-w-[1600px] w-[95%] mx-auto">
   
