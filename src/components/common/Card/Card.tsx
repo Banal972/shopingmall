@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Bookmark from "../Btn/Bookmark";
-import { CardType } from "../../../@types/card";
 import React from "react";
+import { CardType } from "../../../@types/card";
 
 export default function Card({src,name,description,price,id} : CardType) {
 

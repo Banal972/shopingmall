@@ -1,4 +1,4 @@
-import { saleCalc, toNumber } from '../../lib/saleCalc'
+import { saleCalc, toNumber } from '@lib/saleCalc'
 
 export default function Sale({sale,price}:{sale : number,price : number}) {
     return(

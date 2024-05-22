@@ -4,7 +4,7 @@ import { HistoryMoreType } from "../../@types/history";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 import moment from "moment";
-import { toNumber } from "../../lib/saleCalc";
+import { toNumber } from "@lib/saleCalc";
 
 function More() {
 

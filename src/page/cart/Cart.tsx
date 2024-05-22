@@ -1,13 +1,13 @@
 import { IoIosCheckmark } from "react-icons/io";
-import { cartAtom } from "../../store/feature/cart/cart";
+import { cartAtom } from "@store/feature/cart/cart";
 import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
-import { toNumber } from "../../lib/saleCalc";
-import Buy from "../../components/cart/Buy";
-import Remove from "../../components/cart/Remove";
-import Add from "../../components/cart/Add";
-import Delete from "../../components/cart/Delete";
-import Sale from "../../components/cart/Sale";
+import { toNumber } from "@lib/saleCalc";
+import Buy from "@components/cart/Buy";
+import Remove from "@components/cart/Remove";
+import Add from "@components/cart/Add";
+import Delete from "@components/cart/Delete";
+import Sale from "@components/cart/Sale";
 
 export default function Cart() {
 

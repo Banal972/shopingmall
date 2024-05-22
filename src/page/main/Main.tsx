@@ -1,8 +1,8 @@
 import { Autoplay, Pagination, Parallax } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Popular from "../../components/main/Popular/Popular";
-import Only from "../../components/main/Only/Only";
-import Sale from "../../components/main/Sale/Sale";
+import Popular from "@components/main/Popular/Popular";
+import Only from "@components/main/Only/Only";
+import Sale from "@components/main/Sale/Sale";
 
 export default function Main() {
 
