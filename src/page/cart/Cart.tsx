@@ -1,10 +1,8 @@
 import { IoIosCheckmark } from "react-icons/io";
 import { cartAtom } from "../../store/feature/cart/cart";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import { toNumber } from "../../lib/saleCalc";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase";
 import Buy from "../../components/cart/Buy";
 import Remove from "../../components/cart/Remove";
 import Add from "../../components/cart/Add";
@@ -68,7 +66,7 @@ export default function Cart() {
 
                 <div className="border-t-2 border-t-[#000] border-b border-b-[#ddd]">
 
-                    <div className="grid grid-cols-[50px_auto_10%_10%_10%] items-center text-center">
+                    <div className="grid grid-cols-[50px_1fr] lg:grid-cols-[50px_1fr_160px_160px_130px] items-center text-center">
 
                         <div className="p-4 box-border">
                         
@@ -84,10 +82,10 @@ export default function Cart() {
 
                         </div>
                         
-                        <div className="p-4 box-border">상품명</div>
-                        <div className="p-4 box-border">가격</div>
-                        <div className="p-4 box-border">수량</div>
-                        <div className="p-4 box-border">삭제</div>
+                        <div className="p-4 box-border hidden lg:block">상품명</div>
+                        <div className="p-4 box-border hidden lg:block">가격</div>
+                        <div className="p-4 box-border hidden lg:block">수량</div>
+                        <div className="p-4 box-border hidden lg:block">삭제</div>
 
                     </div>
 
@@ -95,22 +93,22 @@ export default function Cart() {
                         cart.length > 0 ?
                             cart.map((elm,index)=>(
                                 <div 
-                                    className={`border-t border-t-[#ddd] grid grid-cols-[50px_auto_10%_10%_10%] items-center text-center ${index === 0 ? "border-t border-t-[#ddd]" : ""}`} 
+                                    className={`border-t border-t-[#ddd] grid grid-cols-[50px_1fr_1fr] lg:grid-cols-[50px_1fr_160px_160px_130px] lg:items-center lg:text-center ${index === 0 ? "border-t border-t-[#ddd]" : ""}`} 
                                     key={`${elm.id}${elm.size}`}
                                 >
                                     <div className="p-4 box-border">
                                         <div 
-                                            className={`w-4 h-4 border border-[#ddd] relative cursor-pointer box-border mx-auto ${checkItem.includes(`${elm.id}${elm.size}`) ? "bg-[#26a8e0] text-white border border-[#26a8e0]" : ""}`}
+                                            className={`w-4 h-4 border border-[#ddd] relative cursor-pointer box-border lg:mx-auto ${checkItem.includes(`${elm.id}${elm.size}`) ? "bg-[#26a8e0] text-white border border-[#26a8e0]" : ""}`}
                                             onClick={()=>handleSingleCheck(`${elm.id}${elm.size}`)}
                                         >
                                             <IoIosCheckmark className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"/>
                                         </div>
                                     </div>
 
-                                    <div className="p-4 box-border">
+                                    <div className="p-4 box-border col-[2/4] lg:col-auto">
                                         <div className="flex items-center">
                                             <div 
-                                                className="bg-no-repeat bg-cover bg-center w-36 h-36 rounded-md border border-[#ddd]" 
+                                                className="flex-none bg-no-repeat bg-cover bg-center w-36 h-36 rounded-md border border-[#ddd]" 
                                                 style={{backgroundImage:`url(${elm.product.src})`}}
                                             />
                                             <div className="ml-5 text-left">
@@ -122,7 +120,10 @@ export default function Cart() {
                                         </div>
                                     </div>
 
-                                    <div className="p-4 box-border flex items-center">
+                                    <div 
+                                        className="p-4 box-border flex col-[2/4] lg:block lg:col-auto lg:items-center lg:justify-center"
+                                    >
+                                        <p className="lg:hidden mr-2">가격</p>
                                         {
                                             elm.product.sale 
                                             ?
@@ -141,7 +142,8 @@ export default function Cart() {
                                         }
                                     </div>
 
-                                    <div className="p-4 box-border">
+                                    <div className="p-4 box-border text-center flex col-[2/4] lg:block lg:col-auto">
+                                        <p className="lg:hidden mr-2">수량</p>
                                         <div className="flex gap-2 border border-[#ddd]">
                                             <Add elm={elm}/>
                                             <div className="flex-1 ">{elm.amount}</div>
@@ -149,7 +151,7 @@ export default function Cart() {
                                         </div>
                                     </div>
 
-                                    <div className="p-4 box-border">
+                                    <div className="p-4 box-border hidden lg:block">
                                         <Remove elm={elm}/>
                                     </div>
 

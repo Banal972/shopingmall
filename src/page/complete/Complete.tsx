@@ -26,7 +26,7 @@ export default function Complete() {
                             {
                                 completeValue.product.map((item,index)=>(
                                     <li key={index} className={`${index !== 0 ? "border-t border-t-[#eee] pt-4 mt-4" : ""}`}>
-                                        <div className="flex py-4 items-start">
+                                        <div className="flex-col md:flex-row flex py-4 items-start">
                                             <div className="w-[185px] h-[185px] relative">
                                                 <img 
                                                     className="absolute left-0 top-0 w-full h-full object-cover"
@@ -34,7 +34,7 @@ export default function Complete() {
                                                     alt={item.name} 
                                                 />
                                             </div>
-                                            <div className="text-sm p-4">
+                                            <div className="text-sm py-4 px-0 md:p-4">
                                                 {
                                                     item.sale !== 0 && <div className="bg-[#cf2f2f] text-white inline-block py-[2.5px] px-[5px] mb-4">SALE</div>
                                                 }
@@ -76,13 +76,13 @@ export default function Complete() {
                         <p className="mt-12 text-lg font-bold">배송비 <span className="ml-6">0 원</span></p>
                         <p className="text-xl font-bold mt-5">총 결제금액 <span className="ml-6">{toNumber(completeValue.total)} 원</span></p>
 
-                        <div className="text-center mt-[85px] text-base flex justify-center">
+                        <div className="text-center mt-[85px] text-base flex-col gap-6 md:flex-row items-center flex justify-center">
                             <Link 
                                 className='bg-[#2fb7cf] text-white w-[150px] flex items-center justify-center py-[10px] box-border'
                                 to={'/history'}
                             >주문내역</Link>
                             <Link 
-                                className='w-[150px] flex items-center justify-center py-[10px] box-border ml-6 border border-black bg-white text-black' 
+                                className='w-[150px] flex items-center justify-center py-[10px] box-border border border-black bg-white text-black' 
                                 to={'/'}
                             >돌아가기</Link>
                         </div>

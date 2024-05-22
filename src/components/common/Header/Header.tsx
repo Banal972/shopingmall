@@ -3,12 +3,16 @@ import { BsCart2, BsPerson } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import { auth } from "../../../firebase";
 import useGetUser from "../../../hooks/useGetUser";
+import { useRecoilValue } from "recoil";
+import { cartAtom } from "../../../store/feature/cart/cart";
 
 export default function Header() {
 
   const user = useGetUser();
   const [fixMenu,setFixMenu] = useState(false);
   const [userMenu,setUserMenu] = useState(false);
+  const [white,setWhite] = useState(false);
+  const cart = useRecoilValue(cartAtom);
 
   const location = useLocation();
 
@@ -19,19 +23,36 @@ export default function Header() {
 
   useEffect(()=>{
     setUserMenu(false);
+    setFixMenu(false);
+    
+    switch(location.pathname.split('/')[1]){
+      case "":
+        setWhite(true);
+        break;
+      case "list":
+        setWhite(true);
+        break;
+      case "bookmark":
+        setWhite(true);
+        break;
+      default :
+        setWhite(false);
+        break;
+    }
+
   },[location.pathname]);
 
   return (
-    <header className="fixed z-50 top-0 left-0 w-full text-white transition-[background]">
+    <header className={`absolute z-50 top-0 left-0 w-full transition-[background] ${white ? "text-white" : "text-black"}`}>
       
-      <div className="max-w-[1600px] w-[95%] mx-auto h-[75px] items-center flex justify-between">
-        <div className="relative z-10 filter-[invert(1)]">
+      <div className={`max-w-[1600px] w-[95%] mx-auto h-[55px] md:h-[75px] border-b md:border-none items-center flex justify-between ${white ? "border-white" : "border-black"}`}>
+        <div className={`w-8 md:w-auto relative z-10 ${white ? "invert" : ""}`}>
           <Link to={"/"}>
             <img src="/asset/image/logo.svg" alt="쇼핑몰 로고" width={50}/>
           </Link>
         </div>
 
-        <nav className="flex h-full font-medium text-base absolute left-1/2 -translate-x-1/2">
+        <nav className="hidden md:flex h-full font-medium text-base absolute left-1/2 -translate-x-1/2">
           <Link className="px-4 h-full flex items-center" to={"/list/999"}>BEST</Link>
           <Link className="px-4 h-full flex items-center" to={"/list/001"}>스니커즈</Link>
           <Link className="px-4 h-full flex items-center" to={"/list/002"}>스포츠</Link>
@@ -46,7 +67,8 @@ export default function Header() {
             {/* 장바구니 */}
             <div className="text-2xl relative">
               {
-                <p className='absolute right-0 top-0 bg-red-500 text-white text-xs w-[12.5px] h-[12.5px] flex items-center justify-center rounded-full overflow-hidden translate-x-1/4 -translate-y-1/4'>{1}</p>
+                cart.length > 0 &&
+                  <p className='absolute right-0 top-0 bg-red-500 text-white text-xs w-[12.5px] h-[12.5px] flex items-center justify-center rounded-full overflow-hidden translate-x-1/4 -translate-y-1/4'>{cart.length}</p>
               }
               <Link to={"/cart"}><BsCart2/></Link>
             </div>
@@ -79,10 +101,10 @@ export default function Header() {
           </nav>
 
           {/* 메뉴 */}
-          <div className={`relative w-6 h-3 ml-10 cursor-pointer z-20`} onClick={()=>setFixMenu(!fixMenu)}>
-            <span className="absolute left-0 top-0 w-full -translate-y-1/2 bg-white block h-[2px]"></span>
-            <span className="absolute left-0 w-full -translate-y-1/2 bg-white block h-[2px] top-1/2"></span>
-            <span className="absolute left-0 w-full -translate-y-1/2 bg-white block h-[2px] top-full"></span>
+          <div className={`relative w-6 h-3 ml-5 md:ml-10 cursor-pointer z-20`} onClick={()=>setFixMenu(!fixMenu)}>
+            <span className={`absolute left-0 top-0 w-full -translate-y-1/2 block h-[2px] ${white ? "bg-white" : "bg-black"}`}></span>
+            <span className={`absolute left-0 w-full -translate-y-1/2 block h-[2px] top-1/2 ${white ? "bg-white" : "bg-black"}`}></span>
+            <span className={`absolute left-0 w-full -translate-y-1/2 block h-[2px] top-full ${white ? "bg-white" : "bg-black"}`}></span>
           </div>
 
         </div>

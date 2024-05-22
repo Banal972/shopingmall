@@ -1,4 +1,4 @@
-import { DetailType } from "../../../../components/common/Card/Card"
+import { DetailType } from "../../../../@types/card"
 
 export interface CartType {
     product : DetailType

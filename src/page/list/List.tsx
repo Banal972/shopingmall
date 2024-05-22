@@ -110,11 +110,11 @@ export default function List() {
     return (
       <div className='box-border'>
   
-          <div className="h-[450px] text-center bg-no-repeat bg-right-bottom bg-cover bg-fixed bg-[url(/asset/image/list/listBg01.jpg)]"></div>
+          <div className="h-[350px] md:h-[450px] text-center bg-no-repeat bg-center md:bg-right-bottom bg-cover bg-fixed bg-[url(/asset/image/list/listBg01.jpg)]"></div>
   
           <div className="py-24 max-w-[1600px] w-[95%] mx-auto">
   
-              <h1 className="text-5xl font-bold mb-5">{title}</h1>
+              <h1 className="text-4xl md:text-5xl font-bold mb-5">{title}</h1>
   
               <ul className="flex flex-wrap text-sm gap-3">
                 {/* background: #000; color: #fff; border-color: #000; */}
@@ -127,7 +127,7 @@ export default function List() {
                 }
               </ul>
 
-              <div className="grid grid-cols-5 gap-x-7 gap-y-16 mt-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-x-7 gap-y-16 mt-12">
                 {
                     filterList.map((el)=><Card key={el.id} {...el}/>)
                 }

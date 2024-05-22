@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Bookmark from "../Btn/Bookmark";
 import { CardType } from "../../../@types/card";
+import React from "react";
 
 export default function Card({src,name,description,price,id} : CardType) {
 
@@ -21,7 +22,7 @@ export default function Card({src,name,description,price,id} : CardType) {
       <div className="pt-4 text-base">
         <h2 className="font-bold text-lg">{name}</h2>
         <p className="text-base mt-3 font-medium">{price}원</p>
-        <p className="whitespace-pre-line overflow-hidden line-clamp-2 text-ellipsis leading-normal text-sm mt-2 text-gray-500">{description?.split("\\n").map(line=><>{line}<br/></>)}</p>
+        <p className="whitespace-pre-line overflow-hidden line-clamp-2 text-ellipsis leading-normal text-sm mt-2 text-gray-500">{description?.split("\\n").map((line,index)=><React.Fragment key={index}>{line}<br/></React.Fragment>)}</p>
         <Bookmark id={id} className="mt-2"/>
       </div>
     </div>

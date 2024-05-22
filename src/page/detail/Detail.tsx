@@ -1,14 +1,16 @@
 import { useParams } from "react-router-dom";
 import Popular from "../../components/detail/popular/Popular";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase";
-import { DetailType, ProductType } from "../../components/common/Card/Card";
 import Sticky from "../../components/detail/sticky/Sticky";
 import Inquiry from "../../components/detail/inquiry/Inquiry";
+import { DetailType, ProductType } from "../../@types/card";
+import { Viewer } from "@toast-ui/react-editor";
 
 export default function Detail() {
 
+    const viewerRef = useRef<Viewer>(null);
     const {id} = useParams();
     const [detail,setDetail] = useState<DetailType>();
     const [step,setStep] = useState(0);
@@ -21,6 +23,7 @@ export default function Detail() {
             ...data,
             id
         });
+        viewerRef.current?.getInstance().setMarkdown(data.detail);
     }
 
     useEffect(()=>{
@@ -30,9 +33,11 @@ export default function Detail() {
     return (
         <div className="pt-10">
 
-            <div className="max-w-[1480px] w-[90%] mx-auto flex relative items-start pt-24 pb-40 gap-x-20">
-
-                <div className="flex-1 min-w-0 box-border">
+            <div 
+                className="max-w-[1480px] w-[90%] mx-auto flex-col md:flex-row flex relative md:items-start pt-24 pb-40 gap-x-14 lg:gap-x-20"
+            >
+                
+                <div className="flex-1 min-w-0 box-border mb-14 md:mb-0">
 
                     <div className="box-border p-0">
                         <div className="max-w-[450px] mx-auto">
@@ -65,7 +70,13 @@ export default function Detail() {
 
                         {
                             step === 0 &&
-                                <div className="mt-12 leading-snug text-base break-keep">{detail?.detail}</div>
+                                detail &&
+                                <div className="mt-12 leading-snug text-base break-keep">
+                                    <Viewer 
+                                        initialValue={detail.detail}
+                                        ref={viewerRef}
+                                        />
+                                </div>
                         }
 
                         {
@@ -75,15 +86,11 @@ export default function Detail() {
 
                     </div>
 
-                    {
-                        detail && <Popular name={detail.name} cate={detail.cate}/>
-                    }
+                    { detail && <Popular name={detail.name} cate={detail.cate}/> }
 
                 </div>
 
-                {
-                    detail && <Sticky detail={detail}/>
-                }
+                { detail && <Sticky detail={detail}/> }
 
             </div>
 

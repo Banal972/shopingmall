@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import { auth, db } from '../../firebase';
 import { FirebaseError } from 'firebase/app';
-import { ProductType } from '../../components/common/Card/Card';
+import { ProductType } from '../../@types/card';
 
 
 function Write() {
@@ -74,12 +74,12 @@ function Write() {
 
             <div className="py-36 max-w-[1024px] w-[95%] mx-auto">
 
-                <h2 className="text-4xl text-center font-bold mb-10">상품후기 - {name}</h2>
+                <h2 className="text-2xl md:text-4xl text-center font-bold mb-10">상품후기 - {name}</h2>
 
                 <form onSubmit={handleSubmit(onSumbitHanlder)}>
                     <div>
                         <label 
-                            className="mb-5 text-xl font-medium block"
+                            className="mb-5 text-lg md:text-xl font-medium block"
                             htmlFor="t"
                         >제목</label>
                         <input
@@ -93,9 +93,9 @@ function Write() {
                     
                     <div className="mt-12">
 
-                        <h2 className="text-xl mb-5 font-medium">내용</h2>
+                        <h2 className="text-lg md:text-xl mb-5 font-medium">내용</h2>
 
-                        <div className="editor h-[450px]">
+                        <div className="editor h-[350px] md:h-[450px]">
                             <Editor
                                 ref={editorRef}
                                 initialValue={" "}

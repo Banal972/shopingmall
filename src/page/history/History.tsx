@@ -44,7 +44,7 @@ function History() {
         <div className="pt-20">
             <div className="max-w-[1480px] w-[95%] mx-auto pt-24 pb-32">
                 
-            <h2 className="text-4xl text-center font-bold mb-10">주문내역</h2>
+            <h2 className="text-3xl md:text-4xl text-center font-bold mb-10">주문내역</h2>
 
                 <ul className='border-t-2 border-t-[#000] border-b border-b-[#eee]'>
                     {
@@ -56,13 +56,13 @@ function History() {
                                 {
                                     e.product.map((item,index)=>(
                                         <div 
-                                            className={`flex items-start mt-4 ${index !== 0 ? "pt-4 border-t border-t-[#ddd]" : ""}`} 
+                                            className={`sm:flex items-start mt-4 ${index !== 0 ? "pt-4 border-t border-t-[#ddd]" : ""}`} 
                                             key={index}
                                         >
                                             <div className="w-[200px] h-[200px] rounded relative">
                                                 <img className="absolute left-0 top-0 w-full h-full object-cover" src={item.src} alt={item.name}/>
                                             </div>
-                                            <div className="text-sm p-4 text-[#555]">
+                                            <div className="text-sm py-4 sm:p-4 text-[#555]">
                                                 <p>{item.name}</p>
                                                 <p className="mt-2">사이즈 : {item.size}</p>
                                                 <p className="mt-2">갯수 : {item.amount} 개</p>

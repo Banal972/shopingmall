@@ -23,6 +23,7 @@ export default function Buy({checkItem} : {checkItem : string[]}) {
       
       if(window.confirm('상품을 구매하시겠습니까?')){
         setBuy(cart);
+        setCart([]);
         return navigate('/buy');
       }
   
